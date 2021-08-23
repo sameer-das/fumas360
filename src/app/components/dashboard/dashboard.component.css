@@ -1,0 +1,75 @@
+.dashboard {
+  /* overflow-x: hidden; */
+  color: #495057;
+  background-color: #eee;
+}
+
+.dashboard .dashboard-header {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.45);
+  padding: 30px;
+  position: relative;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+.flight-icon {
+  font-size: 4rem;
+  width: 65px;
+  color: #5f757d;;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  border-radius: 6px;
+}
+
+.dashboard-heading {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.dashboard-heading div {
+    display: block;
+    margin-left: 2rem;
+    padding: 0.25rem;
+}
+
+.heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.sub-heading {
+    font: 1rem;
+}
+
+
+
+
+
+.content {
+  padding-top: 1rem;
+  padding-left:2rem;
+}
+
+
+.content a {
+    text-decoration: none;
+}
+.image-contianer{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 1rem;
+}
+
+@media (max-width: 576px) {
+  .image-contianer {
+    display: none !important; 
+  }
+}

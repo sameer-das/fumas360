@@ -1,0 +1,62 @@
+.tab-content-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.tab-content-header {
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    color: #343a40;
+}
+.tab-content-datepicker {
+    padding-left: 0 !important;
+}
+
+mat-card-title {
+   color:#343a40;
+   /* font-size: 1rem; */
+}
+
+
+mat-card-subtitle {
+    color:#343a40;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.mt9px {
+    margin-top: 9px;
+}
+
+.crew-card {
+    margin-top: 0.5rem;
+}
+
+.crew-buttons{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+
+.page-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.bottom-row {
+    padding-bottom: 4rem;
+}
+
+.mat-card-subtitle {
+    margin: 0;
+}
+/* .page-wrapper {
+    height: 1500px;
+}
+
+.mat-tab-body-content{
+    overflow: hidden !important;
+} */

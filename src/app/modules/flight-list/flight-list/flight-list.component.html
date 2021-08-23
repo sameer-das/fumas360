@@ -1,0 +1,393 @@
+<div class="page-wrapper">
+    <h2 class="page-heading">Flight List</h2>
+    <mat-card>
+        <div class="row">
+        <div class="col-md-6 col-sm-12 mt9px">
+            <div class="row">
+                <mat-form-field class="col-md-6 col-sm-6">
+                    <input matInput placeholder="Number" type="text">
+                </mat-form-field>
+                <mat-form-field class="col-md-6 col-sm-6">
+                    <mat-label>Date</mat-label>
+                    <input matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="col-md-6 col-sm-6">
+                    <mat-label>Customer</mat-label>
+                    <mat-select>
+                        <mat-option value="">Freedom</mat-option>
+                        <mat-option value="">Freedom</mat-option>
+                        <mat-option value="">Freedom</mat-option>
+                        <mat-option value="">Freedom</mat-option>
+                        <mat-option value="">Freedom</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6 col-sm-6">
+                    <mat-label>Registration</mat-label>
+                    <mat-select>
+                        <mat-option value="">5YFAM</mat-option>
+                        <mat-option value="">5YFAM</mat-option>
+                        <mat-option value="">5YFAM</mat-option>
+                        <mat-option value="">5YFAM</mat-option>
+                        <mat-option value="">5YFAM</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <!-- <div class="row">
+                
+            </div> -->
+            <div class="row">
+                <mat-form-field class="col-md-12 col-sm-12">
+                    <input matInput placeholder="Q No." type="text">
+                </mat-form-field>
+            </div>
+        </div>
+
+
+
+        <div class="col-md-6 col-sm-12">
+            <mat-tab-group>
+                <mat-tab label="Pre Flight"> 
+                  <h4 class="tab-content-header">Pre-Flight Check and CMDT Acceptance </h4>  
+                  <div class="tab-content-row">
+                        <mat-checkbox class="example-margin">Pre Flight Done</mat-checkbox>
+                        <mat-checkbox class="example-margin">CMDT Acceptance</mat-checkbox>
+                        <mat-checkbox class="example-margin">Non Commercial</mat-checkbox>
+                  </div>
+                  <div class="tab-content-row">
+                    <mat-form-field class="col-md-6 col-sm-6 tab-content-datepicker">
+                        <mat-label>Next Check Date</mat-label>
+                        <input matInput [matDatepicker]="picker1">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                    <mat-slide-toggle>Deferred Defect</mat-slide-toggle>
+                  </div>
+                </mat-tab>
+
+                <mat-tab label="Delay Details"> 
+                    <h4 class="tab-content-header">Delay Details Check and CMDT Acceptance </h4>  
+                    <div class="tab-content-row">
+                        <mat-checkbox class="example-margin">Pre Flight Done</mat-checkbox>
+                        <mat-checkbox class="example-margin">CMDT Acceptance</mat-checkbox>
+                        <mat-checkbox class="example-margin">Non Commercial</mat-checkbox>
+                  </div>
+                  <div class="tab-content-row">
+                    <mat-form-field class="col-md-6 col-sm-6 tab-content-datepicker">
+                        <mat-label>Next Check Date</mat-label>
+                        <input matInput [matDatepicker]="picker2">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                    <mat-slide-toggle>Deferred Defect</mat-slide-toggle>
+                  </div>
+                 </mat-tab>
+
+                <mat-tab label="Oil Uplift"> 
+                   <h4 class="tab-content-header">Oil Uplift Check and CMDT Acceptance</h4> 
+                    <div class="tab-content-row">
+                        <mat-checkbox class="example-margin">Pre Flight Done</mat-checkbox>
+                        <mat-checkbox class="example-margin">CMDT Acceptance</mat-checkbox>
+                        <mat-checkbox class="example-margin">Non Commercial</mat-checkbox>
+                  </div>
+                  <div class="tab-content-row">
+                    <mat-form-field class="col-md-6 col-sm-6 tab-content-datepicker">
+                        <mat-label>Next Check Date</mat-label>
+                        <input matInput [matDatepicker]="picker3">
+                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3></mat-datepicker>
+                    </mat-form-field>
+                    <mat-slide-toggle>Deferred Defect</mat-slide-toggle>
+                  </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+    </mat-card>
+
+    <mat-card class="crew-card"> 
+        <mat-card-title>Crew</mat-card-title>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="row">
+                    <mat-form-field class="col-4">
+                        <mat-label>Leg</mat-label>
+                        <mat-select>
+                            <mat-option value="">5YFAM</mat-option>
+                            <mat-option value="">5YFAM</mat-option>
+                            <mat-option value="">5YFAM</mat-option>
+                            <mat-option value="">5YFAM</mat-option>
+                            <mat-option value="">5YFAM</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="col-4">
+                        <input matInput placeholder="CKS OFF" type="text">
+                    </mat-form-field>
+                    <mat-form-field class="col-4">
+                        <input matInput placeholder="Take OFF" type="text">
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field class="col-4">
+                        <input matInput placeholder="BLK Time" type="text">
+                    </mat-form-field>
+                    <mat-form-field class="col-4">
+                        <input matInput placeholder="Pax No" type="text">
+                    </mat-form-field>
+                    <mat-form-field class="col-4">
+                        <input matInput placeholder="Landing (W)" type="text">
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field class="col-4">
+                        <input matInput placeholder="Baggage" type="text">
+                    </mat-form-field>
+                    <mat-form-field class="col-4">
+                        <input matInput placeholder="Cargo" type="text">
+                    </mat-form-field>
+                    <mat-form-field class="col-4">
+                        <input matInput placeholder="Take Off (W)" type="text">
+                    </mat-form-field>
+                </div>            
+            </div>
+            
+            <div class="col-md-6 col-sm-12">
+                <div class="row">
+                    <mat-form-field class="col-4">
+                        <input matInput placeholder="Landing" type="text">
+                    </mat-form-field>
+                    <mat-form-field class="col-4">
+                        <input matInput placeholder="CKS ON" type="text">
+                    </mat-form-field>
+                    <mat-form-field class="col-4">
+                        <input matInput placeholder="FLT Time" type="text">
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field class="col-6">
+                        <input matInput placeholder="Fuel (Uplift)" type="text">
+                    </mat-form-field>
+                    <mat-form-field class="col-6">
+                        <input matInput placeholder="Fuel (On Board)" type="text">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <mat-form-field class="col-3">
+                <input matInput placeholder="From" type="text">
+            </mat-form-field>
+            <mat-form-field class="col-3">
+                <input matInput placeholder="To" type="text">
+            </mat-form-field>
+            <div class="col-2 crew-buttons">
+                <button mat-mini-fab color="primary"><mat-icon>add</mat-icon></button>
+                <button mat-mini-fab color="accent"  ><mat-icon>delete</mat-icon></button>
+            </div>
+            <div class="col-4">
+                <mat-form-field class="col-6">
+                    <input matInput placeholder="Split Duty From" type="text">
+                </mat-form-field>
+                <mat-form-field class="col-6">
+                    <input matInput placeholder="Split Duty To" type="text">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <mat-form-field class="col-4">
+                <input matInput placeholder="Flight No." type="text">
+            </mat-form-field>
+            <mat-form-field class="col-4">
+                <input matInput placeholder="RCPT / ADR NO" type="text">
+            </mat-form-field>
+            <mat-form-field class="col-4">
+                <input matInput placeholder="Supplier" type="text">
+            </mat-form-field>
+        </div>
+
+        <mat-card-subtitle>Crew Details</mat-card-subtitle>
+        <div class="row">
+            <mat-form-field class="col-3">
+                <mat-label>Pilot</mat-label>
+                <mat-select>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-3">
+                <mat-label>Officer</mat-label>
+                <mat-select>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-2">
+                <mat-label>Attendant</mat-label>
+                <mat-select>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-2">
+                <mat-label>Crew 1</mat-label>
+                <mat-select>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+            <mat-form-field class="col-2">
+                <mat-label>Crew 2</mat-label>
+                <mat-select>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <mat-card-subtitle>Other Crew </mat-card-subtitle>
+        <div class="row">
+            <mat-form-field class="col-3">
+                <mat-label>Pilot</mat-label>
+                <mat-select>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-3">
+                <mat-label>Officer</mat-label>
+                <mat-select>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-2">
+                <mat-label>Attendant</mat-label>
+                <mat-select>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-2">
+                <mat-label>Crew 1</mat-label>
+                <mat-select>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+            <mat-form-field class="col-2">
+                <mat-label>Crew 2</mat-label>
+                <mat-select>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                    <mat-option value="">5YFAM</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+ 
+    </mat-card>
+
+    <!-- <mat-card class="crew-card">
+        
+    </mat-card> -->
+
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Number</th>
+                <th scope="col">Flight Reg</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Date</th>
+                <th scope="col">Level</th>
+                <th scope="col">FLT Time</th>
+                <th scope="col">BLK Time</th>
+                <!-- <th scope="col">Action</th> -->
+            </tr>
+        </thead>
+        <tbody class="">
+            <tr *ngFor="let k of arr">
+                <th scope="row">S230</th>
+                <td>SY-FAS</td>
+                <td>Freedom</td>
+                <td>Saturday, July 25</td>
+                <td>Approved</td>
+                <td>1.83</td>
+                <td>2.03</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <div class="row">
+        <mat-form-field class="col-4">
+            <input matInput placeholder="Record(s)" type="text">
+        </mat-form-field>
+        <mat-form-field class="col-4">
+            <input matInput placeholder="Total FLT Time" type="text">
+        </mat-form-field>
+        <mat-form-field class="col-4">
+            <input matInput placeholder="Total BLK Time" type="text">
+        </mat-form-field>
+    </div>
+
+    <div class="row bottom-row">
+        <mat-form-field class="col-md-6 col-sm-12">
+            <textarea matInput placeholder="Remarks"></textarea>
+        </mat-form-field>
+
+        <div class="col-md-6 col-sm-12 page-buttons">
+            <button mat-raised-button>Save</button>
+            <button mat-raised-button>Approve</button>
+            <button mat-raised-button>Generate Invoice</button>
+        </div>
+    </div>
+
+
+</div>

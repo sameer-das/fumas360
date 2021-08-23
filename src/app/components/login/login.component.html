@@ -1,0 +1,22 @@
+
+<div class="login-wrapper">
+    <div class="login-container">
+        <div class="logo-src"></div>
+        <div class="login-area">
+            <h1 class="login-header">Login</h1>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <div>
+                <label for="userid" >User ID</label>
+                <input type="text" id="userid" placeholder="User Id" formControlName="userid">
+              </div>
+              <div>
+                <label for="password" >Password</label>
+                <input type="password" id="password" placeholder="Password" formControlName="password">
+              </div>
+              <div>
+                <input type="submit" [disabled]="form.invalid"  value="Login">
+              </div>
+            </form>
+        </div>
+    </div>
+</div>

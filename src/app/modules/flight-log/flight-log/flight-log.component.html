@@ -1,0 +1,73 @@
+<div class="page-wrapper">
+
+
+    <h2 class="page-heading">Flight Log List</h2>
+    <div class="row">
+        <mat-form-field class="col-md-4 col-sm-4">
+            <!-- <mat-label>Flight Name</mat-label> -->
+            <input matInput placeholder="Search" type="search" autocomplete="off">
+            <button class="clear-search-button">
+                <!-- <span class="material-icons">clear</span> -->
+                <span class="material-icons">search</span>
+            </button>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-4 col-sm-4 filter-by">
+            <mat-label>Filter by</mat-label>
+            <mat-select>
+                <mat-option value="all">All</mat-option>
+                <mat-option value="approved">Approved</mat-option>
+                <mat-option value="draft">Draft</mat-option>
+            </mat-select>
+        </mat-form-field>   
+
+        <mat-form-field class="col-md-4 col-sm-4">
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate placeholder="Start date">
+                <input matEndDate placeholder="End date">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+    </div>
+
+    <div class="card-table table-fixed-height">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Number</th>
+                    <th scope="col">Flight Reg</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Level</th>
+                    <th scope="col">FLT Time</th>
+                    <th scope="col">BLK Time</th>
+                    <!-- <th scope="col">Action</th> -->
+                </tr>
+            </thead>
+            <tbody class="">
+                <tr *ngFor="let k of arr">
+                    <th scope="row">S230</th>
+                    <td>SY-FAS</td>
+                    <td>Freedom</td>
+                    <td>Saturday, July 25</td>
+                    <td>Approved</td>
+                    <td>1.83</td>
+                    <td>2.03</td>
+                    <!-- <td>
+                        <button mat-button>
+                            <span class="material-icons">edit</span>
+                        </button>
+                    </td> -->
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+    
+
+</div>

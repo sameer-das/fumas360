@@ -1,0 +1,36 @@
+<mat-toolbar color="primary"> 
+    <mat-toolbar-row>
+        <mat-icon (click)="sidenav.toggle()">        
+            {{sidenav.opened ? 'menu_open' : 'menu'}}
+        </mat-icon>
+        <div class="logo-src">
+            <img src="assets/logo-inverse.png">
+        </div>
+        <span class="example-spacer"></span>
+        <div class="avtar">
+            <img src="assets/avtar.png">
+        </div>
+        <span>Steve Rogers</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side">
+        <div class="sidebar_header">
+            <a class="dashboard-button" routerLink="/dashboard">Dashboard</a>
+        </div>
+        <app-menu-item *ngFor="let module of modules" [module]="module" [isChild]="false"></app-menu-item>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>   
+    </mat-sidenav-content>    
+</mat-sidenav-container>
+
+<div class="footer">
+    <p>Copyright &copy; 2021 Futuresoft Technologles Ltd. All Rights Reserved.</p>       
+</div>      
+
+
+
+
+<!-- routerLinkActive="side-link-active" [routerLinkActiveOptions]="{exact: true}" routerLink="flight-log" -->

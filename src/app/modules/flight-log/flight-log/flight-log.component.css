@@ -1,0 +1,32 @@
+.table-fixed-height {
+    display: block;
+    max-height: 500px !important;
+}
+
+
+
+.card-table {
+    margin-top: 1rem;
+    padding: 12px;
+    /* border: 1px solid #ccc; */
+    box-shadow: 4px 4px 10px #5f757d;
+    /* border-radius: 5px; */
+    overflow-y: auto !important;
+    height: 420px; /*Remove if needed*/
+}
+
+.card-table thead {
+    background: #5f757d;
+    color: #93dffd;
+}
+
+.clear-search-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}

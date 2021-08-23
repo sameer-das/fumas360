@@ -1,10 +1,42 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { HomeGuardService } from './shared/guards/home-guard.service';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'home', redirectTo: '', pathMatch: 'full' },
+  {
+    path: '',
+    component: HomeComponent,
+    canActivate:[HomeGuardService],
+    children: [
+      {path:'',redirectTo:'dashboard', pathMatch:'full'},
+      {path:'dashboard', component: DashboardComponent},
+      {
+        path: 'flight-list',
+        loadChildren: () =>
+          import('./modules/flight-list/flight-list.module').then(
+            _ => _.FlightListModule
+          ),
+      },
+      {
+        path: 'flight-log',
+        loadChildren: () =>
+          import('./modules/flight-log/flight-log.module').then(
+            _ => _.FlightLogModule
+          ),
+      },
+    ],
+  },
+
+  { path: '**', redirectTo: '', pathMatch: 'full' },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

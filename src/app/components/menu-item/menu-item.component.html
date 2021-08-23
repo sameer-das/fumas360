@@ -1,0 +1,14 @@
+<a class="menu_parent_link" [ngClass]="{'parent_link': !isChild, 'child_link': isChild}" (click)="onClick(module.name)">
+    <div *ngIf="!isChild" class="menu_parent_link_icon">
+        <mat-icon >home</mat-icon>
+    </div>
+    <div [ngClass]="{'opened': expand_child}" class="menu_prent_link_text">{{module.name}}</div>
+    <div class="menu_down_arrow" *ngIf="module.children && module.children.length > 0">
+        <mat-icon>{{expand_child ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
+    </div>
+</a>
+
+
+<ul *ngIf="expand_child && module.children"  class="child_menu_container">
+    <app-menu-item *ngFor="let child of module.children" [ngClass]="{'grand_children': !child.children}" [module]="child" [isChild]="true"></app-menu-item>
+</ul>
