@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/shared/services/login.service';
 import { menu } from './data';
 
 @Component({
@@ -7,8 +8,9 @@ import { menu } from './data';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  modules = menu.data.modules;
-   constructor() { }
+  constructor(private _loginService: LoginService) { }
+  
+  modules = this._loginService.module_data;
 
   ngOnInit(): void {
     // console.log(menu.data.modules);a

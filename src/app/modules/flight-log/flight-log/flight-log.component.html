@@ -32,7 +32,14 @@
         </mat-form-field>
     </div>
 
+    <mat-paginator [length]="100" #paginator
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25]"
+    aria-label="Select page">
+    </mat-paginator>
+
     <div class="card-table table-fixed-height">
+
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -43,23 +50,23 @@
                     <th scope="col">Level</th>
                     <th scope="col">FLT Time</th>
                     <th scope="col">BLK Time</th>
-                    <!-- <th scope="col">Action</th> -->
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
-            <tbody class="">
-                <tr *ngFor="let k of arr">
-                    <th scope="row">S230</th>
-                    <td>SY-FAS</td>
-                    <td>Freedom</td>
-                    <td>Saturday, July 25</td>
-                    <td>Approved</td>
-                    <td>1.83</td>
-                    <td>2.03</td>
-                    <!-- <td>
-                        <button mat-button>
+            <tbody *ngIf="data | async as d" class="">
+                <tr *ngFor="let k of d.data">
+                    <th scope="row">{{k.orderno}}</th>
+                    <td>{{k.flightreg}}</td>
+                    <td>{{k.name}}</td>
+                    <td>{{k.tdate | date:'EEEE, MMMM d, y'}}</td>
+                    <td>{{k.posted}}</td>
+                    <td>{{k.fltTime}}</td>
+                    <td>{{k.blkTime}}</td>
+                    <td>
+                        <button mat-mini-fab color="primary">
                             <span class="material-icons">edit</span>
                         </button>
-                    </td> -->
+                    </td>
                 </tr>
 
             </tbody>

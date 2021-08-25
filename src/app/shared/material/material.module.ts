@@ -15,6 +15,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 const material = [
   CommonModule,
@@ -32,7 +33,8 @@ const material = [
   MatNativeDateModule,
   MatTabsModule,
   MatCheckboxModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatPaginatorModule
 ];
 @NgModule({
   declarations: [],
