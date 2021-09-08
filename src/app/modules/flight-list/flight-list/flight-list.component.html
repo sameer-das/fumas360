@@ -375,7 +375,7 @@
 
             <div class="row">
                 
-                <div class="col-md-3 col-sm-12 col-lg-3 offset-md-9 offset-lg-9 crew-buttons">
+                <div *ngIf="isButtonsVisible"  class="col-md-3 col-sm-12 col-lg-3 offset-md-9 offset-lg-9 crew-buttons">
                     <!-- <button mat-mini-fab color="primary" >
                         <mat-icon>add</mat-icon>
                     </button>
@@ -471,9 +471,9 @@
                 <textarea matInput placeholder="Remarks" formControlName="remarks"></textarea>
             </mat-form-field>
 
-            <div class="col-md-6 col-sm-12 page-buttons">
+            <div *ngIf="isButtonsVisible" class="col-md-6 col-sm-12 page-buttons">
                 <button mat-raised-button type="button" color="primary" (click)="onSave()">Save</button>
-                <button mat-raised-button color="primary">Approve</button>
+                <button mat-raised-button color="primary" (click)="onApprove()">Approve</button>
                 <!-- <button mat-raised-button>Generate Invoice</button> -->
             </div>
         </div>

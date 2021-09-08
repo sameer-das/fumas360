@@ -51,6 +51,8 @@ export class FlightListComponent implements OnInit {
   officers!: any[];
   crews!: any[];
 
+  autoOrderNo:string = '0';
+
   filteredPilots!: Observable<any>;
   filteredOfficers!: Observable<any>;
   filteredAttendants!: Observable<any>;
@@ -65,8 +67,11 @@ export class FlightListComponent implements OnInit {
   crewList: any[] = [];
 
   isNew: boolean = true;
+  isButtonsVisible: boolean = true;
+
 
   ngOnInit(): void {
+
     this.staffs$.subscribe((s) => {
       // this.pilots = s.filter((x: any) => x.tel1.toLowerCase() == 'pilot');
       // this.attendants = s.filter(
@@ -175,11 +180,15 @@ export class FlightListComponent implements OnInit {
 
     this._route.data.subscribe((d) => {
       console.log(d);
+      const autoOrderNo = d.dropdowndata.data.autoOrderNo;
+      const posted = d.flightdata.data.flightLog.posted;
+
       if (d.flightdata !== 0) {
         // edit mode
-        console.log('edit mode');
+        console.log('edit mode, posted',posted);
         this.isNew = true;
         this.nameReadonly = true;
+
         this.patchCustomer(d.flightdata.data.flightLog.name);
         this.patchRegistration(d.flightdata.data.flightLog.flightreg);
         this.patchNumber(d.flightdata.data.flightLog.orderno);
@@ -206,11 +215,23 @@ export class FlightListComponent implements OnInit {
         this.formGroup.patchValue({propserial1: d.flightdata.data.flightLog.propserial1});
         this.formGroup.patchValue({propserial2: d.flightdata.data.flightLog.propserial2});
 
-
-
         this.totalBlkTime = d.flightdata.data.flightLog.totalflighttime;
         this.totalFlightTime = d.flightdata.data.flightLog.totalairtime;
-      } else console.log('normal mode');
+
+        if(posted === 1) {
+          this.formGroup.disable();
+          this.isButtonsVisible = false;
+        }
+        
+      } else {
+        console.log('normal mode ' , autoOrderNo);
+        if(autoOrderNo === '0') {
+          this.nameReadonly = false;
+        } else {
+          this.nameReadonly = true;
+          this.patchNumber(autoOrderNo);
+        }
+      }
     });
   }
 
@@ -688,7 +709,42 @@ export class FlightListComponent implements OnInit {
   }
 
 
-  onSave() {
+  onSave() {   
+    const postData = this.createPayloadForSaveAndApprove();
+    console.dir(postData);
+
+    console.log(JSON.stringify(postData))
+
+    this._flightListService.postFlightLogOperations(postData)
+    .subscribe(d => {
+      console.log(d)
+      alert(d.data)
+      // this._snackBar.open(d.data);
+    }, err => {
+      console.log(err)
+      alert(err.message)
+    });
+  }
+
+  onApprove() {
+    const postData = this.createPayloadForSaveAndApprove(false);
+    console.dir(postData);
+
+    console.log(JSON.stringify(postData))
+
+    this._flightListService.postFlightLogOperations(postData)
+    .subscribe(d => {
+      console.log(d)
+      alert(d.data)
+      // this._snackBar.open(d.data);
+    }, err => {
+      console.log(err)
+      alert(err.message)
+    });
+  }
+
+
+  createPayloadForSaveAndApprove(isSave = true) {
     const crewData = this.crewList.map((curr) => {
       return {
         "orderno": this.formGroup.value.number,
@@ -756,7 +812,7 @@ export class FlightListComponent implements OnInit {
         "totalairtime": this.totalFlightTime,
         "totalflighttime": this.totalBlkTime,
         "totaldutytime": 0.0,
-        "posted": 0,
+        "posted": isSave ? 0 : 1,
         "staff": null,
         "staffdate": "0001-01-01T00:00:00",
         "fid": 0,
@@ -796,22 +852,9 @@ export class FlightListComponent implements OnInit {
       flightLogDetails: [...crewData]
     }
 
-
-    console.dir(postData);
-
-    console.log(JSON.stringify(postData))
-
-    this._flightListService.postFlightLogOperations(postData)
-    .subscribe(d => {
-      console.log(d)
-      alert(d.data)
-      // this._snackBar.open(d.data);
-    }, err => {
-      console.log(err)
-      alert(err.message)
-    });
-
-
-
+    return postData;
   }
+
+
+  
 }
