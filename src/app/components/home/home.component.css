@@ -13,11 +13,13 @@ mat-toolbar {
 
 mat-sidenav-container {
     margin-top: 64px;
+    min-height: calc(100vh - 64px);
 }
 
 @media (max-width: 599px) {
     mat-sidenav-container {
         margin-top: 56px;
+        min-height: calc(100vh - 56px);
     }
 }
 
@@ -30,9 +32,6 @@ mat-sidenav{
  /* min-height: 100vh; */
 }
 
-mat-sidenav-content{
-    /* min-height: 100vh; */
-}
 
 mat-icon {
     cursor: pointer;
@@ -75,6 +74,7 @@ mat-icon {
     position: fixed;
     bottom: 0;
     z-index: 9999;
+    color: #ccc;
 }
 
 .footer p {
@@ -106,3 +106,7 @@ router-outlet {
     min-width: 100%;
     display: block;
 }
+/* 
+mat-progress-bar {
+    top: 68px;
+} */

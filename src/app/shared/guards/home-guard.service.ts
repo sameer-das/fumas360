@@ -12,10 +12,11 @@ export class HomeGuardService implements CanActivate {
   
   canActivate(): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     console.log('in home guard' , this._loginService.module_data.length)
-    if(localStorage.getItem('auth'))
-      return of(true)
-    else  
-      return this._router.createUrlTree(['login']);
+    // if(localStorage.getItem('auth'))
+    //   return of(true)
+    // else  
+    //   return this._router.createUrlTree(['login']);
+    return true;
   }
 
 }

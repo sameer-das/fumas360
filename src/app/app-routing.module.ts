@@ -7,14 +7,14 @@ import { HomeGuardService } from './shared/guards/home-guard.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'home', redirectTo: '', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
-    path: '',
+    path: 'dashboard',
     component: HomeComponent,
     canActivate:[HomeGuardService],
     children: [
-      {path:'',redirectTo:'dashboard', pathMatch:'full'},
-      {path:'dashboard', component: DashboardComponent},
+      // {path:'',redirectTo:'dashboard', pathMatch:'full'},
+      {path:'', component: DashboardComponent, pathMatch:'full'},
       {
         path: 'flight-list',
         loadChildren: () =>
@@ -32,7 +32,7 @@ const routes: Routes = [
     ],
   },
 
-  { path: '**', redirectTo: '', pathMatch: 'full' },
+  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -14,3 +14,22 @@ body { margin: 0; font-family: 'Poppins', sans-serif; padding: 0;}
     padding: 0.5rem 1rem;
     font-family: 'Poppins', sans-serif !important;
 }
+
+.dateRpicker.mat-form-field-disabled .mat-form-field-underline {
+    background-color: rgba(0,0,0,.42) !important; 
+}
+.dateRpicker.mat-form-field-disabled .mat-form-field-underline {
+    background-image: none !important;
+}
+.dateRpicker.mat-form-field-disabled input[type="text"]{
+    color: #000;
+}
+
+.mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
+    background-color: #5f757d !important;
+}
+
+.mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
+    background-color: #e0f3ff;
+    color: #343a40;
+}

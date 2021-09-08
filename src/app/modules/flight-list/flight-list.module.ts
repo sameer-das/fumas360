@@ -3,9 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FlightListComponent } from './flight-list/flight-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from 'src/app/shared/material/material.module';
+import { DropdownDataResolver, FlightListResolverService } from './guards/flight-list-resolver.service';
+import { FlightListService } from './services/flight-list.service';
+import {MultiSelectModule} from 'primeng/multiselect';
+
 
 const routes:Routes = [
-  {path:'',component:FlightListComponent}
+  {path:'',
+  resolve: {flightdata: FlightListResolverService, dropdowndata : DropdownDataResolver},  
+  component:FlightListComponent}
 ]
 
 
@@ -15,8 +21,10 @@ const routes:Routes = [
   ],
   imports: [
     CommonModule,
+    MultiSelectModule,
     MaterialModule,
     RouterModule.forChild(routes)
   ],
+  providers: [FlightListResolverService,DropdownDataResolver, FlightListService]
 })
 export class FlightListModule { }

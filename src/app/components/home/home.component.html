@@ -12,6 +12,7 @@
         </div>
         <span>Steve Rogers</span>
     </mat-toolbar-row>
+    <mat-progress-bar *ngIf="isLoadng$ | async" mode="indeterminate"></mat-progress-bar>
 </mat-toolbar>
 
 <mat-sidenav-container>
@@ -23,14 +24,10 @@
     </mat-sidenav>
     <mat-sidenav-content>
         <router-outlet></router-outlet>   
+
+    <div class="footer">
+        <p>Copyright &copy; 2021 Futuresoft Technologles Ltd. All Rights Reserved. Supporting Partner: Manorama Web Solutions Private Limited</p>       
+    </div>    
     </mat-sidenav-content>    
 </mat-sidenav-container>
-
-<div class="footer">
-    <p>Copyright &copy; 2021 Futuresoft Technologles Ltd. All Rights Reserved.</p>       
-</div>      
-
-
-
-
-<!-- routerLinkActive="side-link-active" [routerLinkActiveOptions]="{exact: true}" routerLink="flight-log" -->
+  

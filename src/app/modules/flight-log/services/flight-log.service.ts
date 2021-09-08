@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
+import { map, shareReplay, tap } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class FlightLogServiceService {
+@Injectable()
+export class FlightLogService {
 
   constructor(private _http: HttpClient) { }
   private URL: string =  `http://101.53.147.38/MyPortal/api/Flight/FlightLogs`
@@ -18,13 +16,15 @@ export class FlightLogServiceService {
             orderno: curr.orderno,
             flightreg: curr.flightreg,
             name: curr.name,
-            tdate:curr.tdate,
-            posted: curr.posted == 0 ? 'Draft' : 'Approved',
+            tdate: new Date(curr.tdate),
+            posted: curr.posted,
             fltTime: curr.totalairtime,
             blkTime: curr.totalflighttime  
           }
         })
       }
-    }));
+    }),
+    shareReplay()
+    );
 
 }

@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     .subscribe((userAuthData: UserAuthData) => {
       console.log(userAuthData);
       if(userAuthData.success){
-        localStorage.setItem('auth',userAuthData.jwt);
+        // localStorage.setItem('auth',userAuthData.jwt);
         this._router.navigate(['/dashboard']);
       }
       else{

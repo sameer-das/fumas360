@@ -1,7 +1,7 @@
 .dashboard {
   /* overflow-x: hidden; */
   color: #495057;
-  background-color: #eee;
+  /* background-color: #eee; */
 }
 
 .dashboard .dashboard-header {
@@ -37,6 +37,10 @@
     display: block;
     margin-left: 2rem;
     padding: 0.25rem;
+}
+
+.dashboard-content {
+  margin-bottom: 2rem;
 }
 
 .heading {

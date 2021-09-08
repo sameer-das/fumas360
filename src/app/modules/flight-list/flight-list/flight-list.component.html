@@ -1,393 +1,482 @@
 <div class="page-wrapper">
-    <h2 class="page-heading">Flight List</h2>
-    <mat-card>
-        <div class="row">
-        <div class="col-md-6 col-sm-12 mt9px">
-            <div class="row">
-                <mat-form-field class="col-md-6 col-sm-6">
-                    <input matInput placeholder="Number" type="text">
-                </mat-form-field>
-                <mat-form-field class="col-md-6 col-sm-6">
-                    <mat-label>Date</mat-label>
-                    <input matInput [matDatepicker]="picker">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-            </div>
-            <div class="row">
-                <mat-form-field class="col-md-6 col-sm-6">
-                    <mat-label>Customer</mat-label>
-                    <mat-select>
-                        <mat-option value="">Freedom</mat-option>
-                        <mat-option value="">Freedom</mat-option>
-                        <mat-option value="">Freedom</mat-option>
-                        <mat-option value="">Freedom</mat-option>
-                        <mat-option value="">Freedom</mat-option>
-                    </mat-select>
-                </mat-form-field>
+    <h2 class="page-heading">Flight Log</h2>
+    <a class="flight-log-button" routerLink='/dashboard/flight-log' mat-raised-button color="primary">Show Flight
+        Lists</a>
 
-                <mat-form-field class="col-md-6 col-sm-6">
-                    <mat-label>Registration</mat-label>
-                    <mat-select>
-                        <mat-option value="">5YFAM</mat-option>
-                        <mat-option value="">5YFAM</mat-option>
-                        <mat-option value="">5YFAM</mat-option>
-                        <mat-option value="">5YFAM</mat-option>
-                        <mat-option value="">5YFAM</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <!-- <div class="row">
+    <form [formGroup]="formGroup">
+
+
+        <!-- <mat-card> -->
+        <div class="row">
+            <div class="col-md-6 col-sm-12 mt9px">
+                <div class="row">
+                    <mat-form-field class="col-md-6 col-sm-6">
+                        <input matInput placeholder="Number" type="text" [readonly]="nameReadonly"
+                            formControlName="number">
+                    </mat-form-field>
+                    <mat-form-field class="col-md-6 col-sm-6">
+                        <mat-label>Date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field class="col-md-6 col-sm-6">
+                        <!-- <mat-label>Customer</mat-label> -->
+                        <input type="text" placeholder="Customer" aria-label="Customer" matInput
+                            formControlName="customer" [matAutocomplete]="customer">
+                        <mat-autocomplete #customer="matAutocomplete" [displayWith]="displayCustomerName">
+                            <mat-option *ngFor="let option of filteredCustomerOptions | async" [value]="option">
+                                {{option.names}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-md-6 col-sm-6">
+                        <input type="text" placeholder="Registration" aria-label="Registration" matInput
+                            formControlName="registration" [matAutocomplete]="registration">
+                        <mat-autocomplete #registration="matAutocomplete" [displayWith]="displayRegistratonName">
+                            <mat-option *ngFor="let option of filteredRegistrationOptions | async" [value]="option">
+                                {{option.ainfo}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+                <!-- <div class="row">
                 
             </div> -->
-            <div class="row">
-                <mat-form-field class="col-md-12 col-sm-12">
-                    <input matInput placeholder="Q No." type="text">
-                </mat-form-field>
+                <div class="row">
+                    <mat-form-field class="col-md-12 col-sm-12">
+                        <input matInput placeholder="Q No." type="text" formControlName="qno">
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-6 col-sm-12">
+                <mat-tab-group>
+                    <mat-tab label="Pre Flight">
+                        <h4 class="tab-content-header">Pre-Flight Check and CMDT Acceptance </h4>
+                        <div class="tab-content-row">
+                            <mat-checkbox class="example-margin" formControlName="preflightDone">Pre Flight Done
+                            </mat-checkbox>
+                            <mat-checkbox class="example-margin" formControlName="cmdtAcceptance">CMDT Acceptance
+                            </mat-checkbox>
+                            <mat-checkbox class="example-margin" formControlName="nonCommercial">Non Commercial
+                            </mat-checkbox>
+                        </div>
+                        <div class="tab-content-row">
+                            <mat-form-field class="col-md-6 col-sm-6 tab-content-datepicker">
+                                <mat-label>Next Check Date</mat-label>
+                                <input matInput [matDatepicker]="picker1" formControlName="nextCheckDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                            <mat-slide-toggle formControlName="deferDefect">Deferred Defect</mat-slide-toggle>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="Delay Details">
+                        <div class="tab-content-row">
+                            <mat-slide-toggle class="col-4" formControlName="hasDelay">Has Delay</mat-slide-toggle>
+                            <mat-form-field class="col-4">
+                                <mat-label>By</mat-label>
+                                <mat-select formControlName="delayBy">
+                                    <mat-option value="OPS">OPS</mat-option>
+                                    <mat-option value="TECH">TECH</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field class="col-4">
+                                <input matInput placeholder="Airport" type="text" formControlName="delayAirport">
+                            </mat-form-field>
+                        </div>
+                        <div class="tab-content-row">
+                            <mat-form-field class="col-4">
+                                <mat-label>DE/CX</mat-label>
+                                <mat-select formControlName="deOrCx">
+                                    <mat-option value="DE">DE</mat-option>
+                                    <mat-option value="CX">CX</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field class="col-md-8 col-sm-8">
+                                <input matInput placeholder="Delay Time" type="time" formControlName="delayTime">
+                            </mat-form-field>
+                        </div>
+                        <div class="tab-content-row">
+                            <mat-form-field class="col-md-6 col-sm-6">
+                                <input matInput placeholder="Delay Reason" type="text" formControlName="delayReason">
+                            </mat-form-field>
+                            <mat-form-field class="col-md-6 col-sm-6">
+                                <input matInput placeholder="Corrective Action" type="text"
+                                    formControlName="delayCorrectiveAction">
+                            </mat-form-field>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="Oil Uplift">
+                        <div class="tab-content-row mt9px">
+                            <mat-form-field class="col-6">
+                                <input matInput placeholder="Engine Serial" type="text" 
+                                formControlName="engine1">
+                            </mat-form-field>
+
+                            <mat-form-field class="col-6">
+                                <input matInput placeholder="Engine Serial No. 2" type="text"
+                                formControlName="engine2">
+                            </mat-form-field>
+                        </div>
+                        <div class="tab-content-row">
+                            <mat-form-field class="col-6">
+                                <input matInput placeholder="Oil Uplift" type="text" formControlName="oilengine1">
+                            </mat-form-field>
+                            <mat-form-field class="col-6">
+                                <input matInput placeholder="Oil Uplift" type="text" formControlName="oilengine2">
+                            </mat-form-field>
+                        </div>
+                        <div class="tab-content-row">
+                            <mat-form-field class="col-6">
+                                <input matInput placeholder="Prop Serial No." type="text" formControlName="propserial1">
+                            </mat-form-field>
+
+                            <mat-form-field class="col-6">
+                                <input matInput placeholder="Prop Serial No." type="text" formControlName="propserial2">
+                            </mat-form-field>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
             </div>
         </div>
+        <!-- </mat-card> -->
 
-
-
-        <div class="col-md-6 col-sm-12">
-            <mat-tab-group>
-                <mat-tab label="Pre Flight"> 
-                  <h4 class="tab-content-header">Pre-Flight Check and CMDT Acceptance </h4>  
-                  <div class="tab-content-row">
-                        <mat-checkbox class="example-margin">Pre Flight Done</mat-checkbox>
-                        <mat-checkbox class="example-margin">CMDT Acceptance</mat-checkbox>
-                        <mat-checkbox class="example-margin">Non Commercial</mat-checkbox>
-                  </div>
-                  <div class="tab-content-row">
-                    <mat-form-field class="col-md-6 col-sm-6 tab-content-datepicker">
-                        <mat-label>Next Check Date</mat-label>
-                        <input matInput [matDatepicker]="picker1">
-                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                        <mat-datepicker #picker1></mat-datepicker>
-                    </mat-form-field>
-                    <mat-slide-toggle>Deferred Defect</mat-slide-toggle>
-                  </div>
-                </mat-tab>
-
-                <mat-tab label="Delay Details"> 
-                    <h4 class="tab-content-header">Delay Details Check and CMDT Acceptance </h4>  
-                    <div class="tab-content-row">
-                        <mat-checkbox class="example-margin">Pre Flight Done</mat-checkbox>
-                        <mat-checkbox class="example-margin">CMDT Acceptance</mat-checkbox>
-                        <mat-checkbox class="example-margin">Non Commercial</mat-checkbox>
-                  </div>
-                  <div class="tab-content-row">
-                    <mat-form-field class="col-md-6 col-sm-6 tab-content-datepicker">
-                        <mat-label>Next Check Date</mat-label>
-                        <input matInput [matDatepicker]="picker2">
-                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                        <mat-datepicker #picker2></mat-datepicker>
-                    </mat-form-field>
-                    <mat-slide-toggle>Deferred Defect</mat-slide-toggle>
-                  </div>
-                 </mat-tab>
-
-                <mat-tab label="Oil Uplift"> 
-                   <h4 class="tab-content-header">Oil Uplift Check and CMDT Acceptance</h4> 
-                    <div class="tab-content-row">
-                        <mat-checkbox class="example-margin">Pre Flight Done</mat-checkbox>
-                        <mat-checkbox class="example-margin">CMDT Acceptance</mat-checkbox>
-                        <mat-checkbox class="example-margin">Non Commercial</mat-checkbox>
-                  </div>
-                  <div class="tab-content-row">
-                    <mat-form-field class="col-md-6 col-sm-6 tab-content-datepicker">
-                        <mat-label>Next Check Date</mat-label>
-                        <input matInput [matDatepicker]="picker3">
-                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                        <mat-datepicker #picker3></mat-datepicker>
-                    </mat-form-field>
-                    <mat-slide-toggle>Deferred Defect</mat-slide-toggle>
-                  </div>
-                </mat-tab>
-            </mat-tab-group>
-        </div>
-    </div>
-    </mat-card>
-
-    <mat-card class="crew-card"> 
-        <mat-card-title>Crew</mat-card-title>
-        <div class="row">
-            <div class="col-md-6 col-sm-12">
-                <div class="row">
+        <!-- <mat-card class="crew-card"> -->
+        <div formGroupName="crew">
+            <h3>Crew</h3>
+            <div class="row">
+                <!-- <div class="col-2 dflex"> -->
                     <mat-form-field class="col-4">
                         <mat-label>Leg</mat-label>
-                        <mat-select>
-                            <mat-option value="">5YFAM</mat-option>
-                            <mat-option value="">5YFAM</mat-option>
-                            <mat-option value="">5YFAM</mat-option>
-                            <mat-option value="">5YFAM</mat-option>
-                            <mat-option value="">5YFAM</mat-option>
-                        </mat-select>
+                        <input type="text" placeholder="Leg" aria-label="Crew Leg" matInput
+                            formControlName="crewLeg" [matAutocomplete]="leg">
+
+                        <mat-autocomplete #leg="matAutocomplete" [displayWith]="displayCrewLeg">
+                            <mat-option *ngFor="let option of filteredCrewLegOptions | async" [value]="option">
+                                {{option.nmroute}}
+                            </mat-option>
+                        </mat-autocomplete>
                     </mat-form-field>
-                    <mat-form-field class="col-4">
-                        <input matInput placeholder="CKS OFF" type="text">
-                    </mat-form-field>
-                    <mat-form-field class="col-4">
-                        <input matInput placeholder="Take OFF" type="text">
-                    </mat-form-field>
-                </div>
-                <div class="row">
-                    <mat-form-field class="col-4">
-                        <input matInput placeholder="BLK Time" type="text">
-                    </mat-form-field>
-                    <mat-form-field class="col-4">
-                        <input matInput placeholder="Pax No" type="text">
-                    </mat-form-field>
-                    <mat-form-field class="col-4">
-                        <input matInput placeholder="Landing (W)" type="text">
-                    </mat-form-field>
-                </div>
-                <div class="row">
-                    <mat-form-field class="col-4">
-                        <input matInput placeholder="Baggage" type="text">
-                    </mat-form-field>
-                    <mat-form-field class="col-4">
-                        <input matInput placeholder="Cargo" type="text">
-                    </mat-form-field>
-                    <mat-form-field class="col-4">
-                        <input matInput placeholder="Take Off (W)" type="text">
-                    </mat-form-field>
-                </div>            
+                    <!-- <span class="material-icons crewLeg-lookup-button">auto_fix_high</span> -->
+
+                <!-- </div> -->
+
+                <mat-form-field class="col-4">
+                    <input matInput placeholder="From" readonly type="text" formControlName="crewFrom">
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                    <!-- [value]="formGroup.get('crew')?.get('crewLeg')?.value?.rto || null"  -->
+                    <input matInput placeholder="To" readonly type="text" formControlName="crewTo">
+                </mat-form-field>
+
+
+
+                
+
             </div>
+
+
+            <div class="row">
+                <mat-form-field class="col-md-2 col-sm-2">
+                    <input matInput placeholder="Take OFF" type="time" formControlName="takeOff">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-2 col-sm-2">
+                    <input matInput placeholder="Landing" type="time" formControlName="landing">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-2 col-sm-2">
+                    <input matInput placeholder="FLT Time" type="text" readonly formControlName="fltTime">
+                </mat-form-field>
+
+
+                <mat-form-field class="col-md-2 col-sm-2">
+                    <input matInput placeholder="CKS OFF" type="time" formControlName="cksOff">
+                </mat-form-field>
+                
+                <mat-form-field class="col-md-2 col-sm-2">
+                    <input matInput placeholder="CKS ON" type="time" formControlName="cksOn">
+                </mat-form-field>
+                
+
+                <mat-form-field class="col-md-2 col-sm-2">
+                    <input matInput placeholder="BLK Time" type="text" readonly formControlName="blkTime">
+                </mat-form-field>              
+            </div>
+
+
+
+            <div class="row">
+                <mat-form-field class="col-4">
+                    <input matInput placeholder="Pax No" type="text" formControlName="paxNo">
+                </mat-form-field>
+                <mat-form-field class="col-2">
+                    <input matInput placeholder="Landing (W)" type="text" formControlName="landingWeight">
+                </mat-form-field>
+                <mat-form-field class="col-2">
+                    <input matInput placeholder="Take Off (W)" type="text" formControlName="takeOffWeight">
+                </mat-form-field>
+                <mat-form-field class="col-2">
+                    <input matInput placeholder="Baggage" type="text" formControlName="baggage">
+                </mat-form-field>
+                <mat-form-field class="col-2">
+                    <input matInput placeholder="Cargo" type="text" formControlName="cargo">
+                </mat-form-field>
+            </div>
+
+
+            <div class="row">                
+                <mat-form-field class="col-3">
+                    <input matInput placeholder="Fuel (Uplift)" type="text" formControlName="fuelUplift">
+                </mat-form-field>
+                <mat-form-field class="col-3">
+                    <input matInput placeholder="Fuel (On Board)" type="text" formControlName="fuelOnboard">
+                </mat-form-field>
+                <mat-form-field class="col-3">
+                    <input matInput placeholder="Split Duty From" type="time" formControlName="splitDutyFrom">
+                </mat-form-field>
+                <mat-form-field class="col-3">
+                    <input matInput placeholder="Split Duty To" type="time" formControlName="splitDutyTo">
+                </mat-form-field>
+            </div>
+
+
+
+
             
-            <div class="col-md-6 col-sm-12">
-                <div class="row">
-                    <mat-form-field class="col-4">
-                        <input matInput placeholder="Landing" type="text">
-                    </mat-form-field>
-                    <mat-form-field class="col-4">
-                        <input matInput placeholder="CKS ON" type="text">
-                    </mat-form-field>
-                    <mat-form-field class="col-4">
-                        <input matInput placeholder="FLT Time" type="text">
-                    </mat-form-field>
-                </div>
-                <div class="row">
-                    <mat-form-field class="col-6">
-                        <input matInput placeholder="Fuel (Uplift)" type="text">
-                    </mat-form-field>
-                    <mat-form-field class="col-6">
-                        <input matInput placeholder="Fuel (On Board)" type="text">
-                    </mat-form-field>
+
+            <div class="row">
+                <mat-form-field class="col-4">
+                    <input matInput placeholder="Flight No." type="text" formControlName="flightNo">
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                    <input matInput placeholder="RCPT / ADR NO" type="text" formControlName="rcptOrAdrNo">
+                </mat-form-field>
+                <!-- <mat-form-field class="col-4">
+                    <input matInput placeholder="Supplier" type="text">
+                </mat-form-field> -->
+                <mat-form-field class="col-4">
+                    <mat-label>Suppliers</mat-label>
+                    <mat-select formControlName="supplier" multiple>
+                        <mat-option *ngFor="let opt of suppliers$ | async" [value]="opt.names">{{opt.names}}
+                        </mat-option>
+                    </mat-select>
+                    <!-- <p-multiSelect [options]="suppliers$ | async" placeholder="Supplier" formControlName="supplier"  defaultLabel="Supplier" optionLabel="names"></p-multiSelect> -->
+                </mat-form-field>
+
+            </div>
+            <h4>Crew Details</h4>
+            <div class="row">
+                <mat-form-field class="col-4">
+                    <input type="text" placeholder="Pilot" aria-label="Pilot" matInput formControlName="pilot"
+                        [matAutocomplete]="pilot">
+                    <mat-autocomplete #pilot="matAutocomplete" [displayWith]="displayStaff">
+                        <mat-option *ngFor="let option of filteredPilots | async" [value]="option">
+                            {{option.names}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <mat-form-field class="col-4">
+                    <input type="text" placeholder="Officer" aria-label="Officer" matInput formControlName="officer"
+                        [matAutocomplete]="officer">
+                    <mat-autocomplete #officer="matAutocomplete" [displayWith]="displayStaff">
+                        <mat-option *ngFor="let option of filteredOfficers | async" [value]="option">
+                            {{option.names}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <mat-form-field class="col-4">
+                    <input type="text" placeholder="Attendant" aria-label="Attendant" matInput
+                        formControlName="attendant" [matAutocomplete]="attendant">
+                    <mat-autocomplete #attendant="matAutocomplete" [displayWith]="displayStaff">
+                        <mat-option *ngFor="let option of filteredAttendants | async" [value]="option">
+                            {{option.names}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                <mat-form-field class="col-2">
+                    <input type="text" placeholder="Crew 1" aria-label="Crew 1" matInput formControlName="crew1"
+                        [matAutocomplete]="crew1">
+                    <mat-autocomplete #crew1="matAutocomplete" [displayWith]="displayStaff">
+                        <mat-option *ngFor="let option of filteredCrew1 | async" [value]="option">
+                            {{option.names}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <mat-form-field class="col-2">
+                    <input type="text" placeholder="Crew 2" aria-label="Crew 2" matInput formControlName="crew2"
+                        [matAutocomplete]="crew2">
+                    <mat-autocomplete #crew2="matAutocomplete" [displayWith]="displayStaff">
+                        <mat-option *ngFor="let option of filteredCrew2 | async" [value]="option">
+                            {{option.names}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <mat-form-field class="col-2">
+                    <input type="text" placeholder="Crew 3" aria-label="Crew 3" matInput formControlName="crew3"
+                        [matAutocomplete]="crew3">
+                    <mat-autocomplete #crew3="matAutocomplete" [displayWith]="displayStaff">
+                        <mat-option *ngFor="let option of filteredCrew3 | async" [value]="option">
+                            {{option.names}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <mat-form-field class="col-2">
+                    <input type="text" placeholder="Crew 4" aria-label="Crew 4" matInput formControlName="crew4"
+                        [matAutocomplete]="crew4">
+                    <mat-autocomplete #crew4="matAutocomplete" [displayWith]="displayStaff">
+                        <mat-option *ngFor="let option of filteredCrew4 | async" [value]="option">
+                            {{option.names}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+
+                <mat-form-field class="col-2">
+                    <input type="text" placeholder="Crew 5" aria-label="Crew 5" matInput formControlName="crew5"
+                        [matAutocomplete]="crew5">
+                    <mat-autocomplete #crew5="matAutocomplete" [displayWith]="displayStaff">
+                        <mat-option *ngFor="let option of filteredCrew5 | async" [value]="option">
+                            {{option.names}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <mat-form-field class="col-2">
+                    <input type="text" placeholder="Crew 6" aria-label="Crew 6" matInput formControlName="crew6"
+                        [matAutocomplete]="crew6">
+                    <mat-autocomplete #crew6="matAutocomplete" [displayWith]="displayStaff">
+                        <mat-option *ngFor="let option of filteredCrew6 | async" [value]="option">
+                            {{option.names}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+
+
+            <div class="row">
+                
+                <div class="col-md-3 col-sm-12 col-lg-3 offset-md-9 offset-lg-9 crew-buttons">
+                    <!-- <button mat-mini-fab color="primary" >
+                        <mat-icon>add</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="accent" >
+                        <mat-icon>delete</mat-icon>
+                    </button> -->
+                    <button mat-raised-button color="primary" (click)="addToCrewArray()">Add</button>
+                <button mat-raised-button color="accent" (click)="deleteFromCrewArray()">Delete</button>
                 </div>
             </div>
+
+
         </div>
 
-        <div class="row">
-            <mat-form-field class="col-3">
-                <input matInput placeholder="From" type="text">
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="log-table">
+                    <tr>
+                        <th scope="col">Route</th>
+                        <th scope="col">CKS OFF</th>
+                        <th scope="col">TAKE OFF</th>
+                        <th scope="col">LANDING</th>
+                        <th scope="col">CKS ON</th>
+                        <th scope="col">FLT Time</th>
+                        <th scope="col">BLK Time</th>
+                        <th scope="col">Pax No</th>
+                        <th scope="col">Weight</th>
+                        <th scope="col">Fuel(Uplift)</th>
+                        <th scope="col">Fuel(Onboard)</th>
+                        <th scope="col">Bag/Cargo</th>
+                        <th scope="col">Takeoff Weight</th>
+                        <th scope="col">Off From</th>
+                        <th scope="col">From</th>
+                        <th scope="col">To</th>
+                        <th scope="col">Slid</th>
+                        <th scope="col">Flight No</th>
+                        <th scope="col">Bag</th>
+
+                    </tr>
+                </thead>
+                <tbody class="">
+                    <tr *ngFor="let c of crewList; let i = index" (click)="loadRowtoCrewForm(c)" [ngClass]="{'row-selected': c.route == selectedCrew?.route}">
+                        <th scope="row">{{c.route}}</th>
+                        <td>{{c.cksOff}}</td>
+                        <td>{{c.takeOff}}</td>
+                        <td>{{c.landing}}</td>
+                        <td>{{c.cksOn}}</td>
+                        <td>{{c.fltTime}}</td>
+                        <td>{{c.blkTime}}</td>
+                        <td>{{c.paxNo}}</td>
+                        <td>{{c.landingWeight}}</td>
+                        <td>{{c.fuelUplift}}</td>
+                        <td>{{c.fuelOnboard}}</td>
+                        <td>{{c.cargo}}</td>
+                        <td>{{c.takeOffWeight}}</td>
+                        <td>{{c.splitDutyFrom}}</td>
+                        <td>{{c.crewFrom}}</td>
+                        <td>{{c.crewTo}}</td>
+                        <td>{{c.fdid }}</td>
+                        <td>{{c.flightNo}}</td>
+                        <td>{{c.baggage}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+        <div class="row total-details">
+            <!-- <mat-form-field class="col-4">
+                <input matInput placeholder="Record(s)" type="text" formControlName="record">
             </mat-form-field>
-            <mat-form-field class="col-3">
-                <input matInput placeholder="To" type="text">
+            <mat-form-field class="col-4">
+                <input matInput placeholder="Total FLT Time" type="time" formControlName="totalFltTime">
             </mat-form-field>
-            <div class="col-2 crew-buttons">
-                <button mat-mini-fab color="primary"><mat-icon>add</mat-icon></button>
-                <button mat-mini-fab color="accent"  ><mat-icon>delete</mat-icon></button>
+            <mat-form-field class="col-4">
+                <input matInput placeholder="Total BLK Time" type="time" formControlName="totalBlkTime">
+            </mat-form-field> -->
+            <div class="col-4">
+                <strong>Total Record(s): </strong> {{crewList.length}}
             </div>
             <div class="col-4">
-                <mat-form-field class="col-6">
-                    <input matInput placeholder="Split Duty From" type="text">
-                </mat-form-field>
-                <mat-form-field class="col-6">
-                    <input matInput placeholder="Split Duty To" type="text">
-                </mat-form-field>
+                <strong>Total FLT Time: </strong> {{totalFlightTime.toFixed(2)}}
+            </div>
+            <div class="col-4">
+                <strong>Total BLK Time: </strong>{{totalBlkTime.toFixed(2)}}
             </div>
         </div>
 
-        <div class="row">
-            <mat-form-field class="col-4">
-                <input matInput placeholder="Flight No." type="text">
+        <div class="row bottom-row">
+            <mat-form-field class="col-md-6 col-sm-12">
+                <textarea matInput placeholder="Remarks" formControlName="remarks"></textarea>
             </mat-form-field>
-            <mat-form-field class="col-4">
-                <input matInput placeholder="RCPT / ADR NO" type="text">
-            </mat-form-field>
-            <mat-form-field class="col-4">
-                <input matInput placeholder="Supplier" type="text">
-            </mat-form-field>
+
+            <div class="col-md-6 col-sm-12 page-buttons">
+                <button mat-raised-button type="button" color="primary" (click)="onSave()">Save</button>
+                <button mat-raised-button color="primary">Approve</button>
+                <!-- <button mat-raised-button>Generate Invoice</button> -->
+            </div>
         </div>
 
-        <mat-card-subtitle>Crew Details</mat-card-subtitle>
-        <div class="row">
-            <mat-form-field class="col-3">
-                <mat-label>Pilot</mat-label>
-                <mat-select>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="col-3">
-                <mat-label>Officer</mat-label>
-                <mat-select>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="col-2">
-                <mat-label>Attendant</mat-label>
-                <mat-select>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="col-2">
-                <mat-label>Crew 1</mat-label>
-                <mat-select>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                </mat-select>
-            </mat-form-field>
-
-
-            <mat-form-field class="col-2">
-                <mat-label>Crew 2</mat-label>
-                <mat-select>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-
-        <mat-card-subtitle>Other Crew </mat-card-subtitle>
-        <div class="row">
-            <mat-form-field class="col-3">
-                <mat-label>Pilot</mat-label>
-                <mat-select>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="col-3">
-                <mat-label>Officer</mat-label>
-                <mat-select>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="col-2">
-                <mat-label>Attendant</mat-label>
-                <mat-select>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="col-2">
-                <mat-label>Crew 1</mat-label>
-                <mat-select>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                </mat-select>
-            </mat-form-field>
-
-
-            <mat-form-field class="col-2">
-                <mat-label>Crew 2</mat-label>
-                <mat-select>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                    <mat-option value="">5YFAM</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-
-
- 
-    </mat-card>
-
-    <!-- <mat-card class="crew-card">
-        
-    </mat-card> -->
-
-
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Number</th>
-                <th scope="col">Flight Reg</th>
-                <th scope="col">Customer Name</th>
-                <th scope="col">Date</th>
-                <th scope="col">Level</th>
-                <th scope="col">FLT Time</th>
-                <th scope="col">BLK Time</th>
-                <!-- <th scope="col">Action</th> -->
-            </tr>
-        </thead>
-        <tbody class="">
-            <tr *ngFor="let k of arr">
-                <th scope="row">S230</th>
-                <td>SY-FAS</td>
-                <td>Freedom</td>
-                <td>Saturday, July 25</td>
-                <td>Approved</td>
-                <td>1.83</td>
-                <td>2.03</td>
-            </tr>
-        </tbody>
-    </table>
-
-
-    <div class="row">
-        <mat-form-field class="col-4">
-            <input matInput placeholder="Record(s)" type="text">
-        </mat-form-field>
-        <mat-form-field class="col-4">
-            <input matInput placeholder="Total FLT Time" type="text">
-        </mat-form-field>
-        <mat-form-field class="col-4">
-            <input matInput placeholder="Total BLK Time" type="text">
-        </mat-form-field>
-    </div>
-
-    <div class="row bottom-row">
-        <mat-form-field class="col-md-6 col-sm-12">
-            <textarea matInput placeholder="Remarks"></textarea>
-        </mat-form-field>
-
-        <div class="col-md-6 col-sm-12 page-buttons">
-            <button mat-raised-button>Save</button>
-            <button mat-raised-button>Approve</button>
-            <button mat-raised-button>Generate Invoice</button>
-        </div>
-    </div>
-
-
+    </form>
 </div>
