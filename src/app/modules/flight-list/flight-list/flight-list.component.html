@@ -11,7 +11,7 @@
             <div class="col-md-6 col-sm-12 mt9px">
                 <div class="row">
                     <mat-form-field class="col-md-6 col-sm-6">
-                        <input matInput placeholder="Number" type="text" [readonly]="nameReadonly"
+                        <input matInput placeholder="Number" type="text" [readonly]="nameReadonly" 
                             formControlName="number">
                     </mat-form-field>
                     <mat-form-field class="col-md-6 col-sm-6">
@@ -24,7 +24,7 @@
                 <div class="row">
                     <mat-form-field class="col-md-6 col-sm-6">
                         <!-- <mat-label>Customer</mat-label> -->
-                        <input type="text" placeholder="Customer" aria-label="Customer" matInput
+                        <input type="text" placeholder="Customer" aria-label="Customer" matInput 
                             formControlName="customer" [matAutocomplete]="customer">
                         <mat-autocomplete #customer="matAutocomplete" [displayWith]="displayCustomerName">
                             <mat-option *ngFor="let option of filteredCustomerOptions | async" [value]="option">
@@ -156,8 +156,8 @@
         <div formGroupName="crew">
             <h3>Crew</h3>
             <div class="row">
-                <!-- <div class="col-2 dflex"> -->
-                    <mat-form-field class="col-4">
+                <div class="col-4 row">
+                    <mat-form-field class="col-10">
                         <mat-label>Leg</mat-label>
                         <input type="text" placeholder="Leg" aria-label="Crew Leg" matInput
                             formControlName="crewLeg" [matAutocomplete]="leg">
@@ -168,9 +168,13 @@
                             </mat-option>
                         </mat-autocomplete>
                     </mat-form-field>
-                    <!-- <span class="material-icons crewLeg-lookup-button">auto_fix_high</span> -->
-
-                <!-- </div> -->
+                    <div *ngIf="isButtonsVisible" class="col-2">
+                        <button class="crewLeg-lookup-button" title="Search Crew Leg" type="button" mat-mini-fab color="accent" (click)="openDialog()">
+                            <mat-icon>auto_fix_high</mat-icon>
+                        </button>
+                    </div>
+                    <!-- <span class="col-2 material-icons crewLeg-lookup-button">auto_fix_high</span> -->
+                </div>
 
                 <mat-form-field class="col-4">
                     <input matInput placeholder="From" readonly type="text" formControlName="crewFrom">
@@ -189,30 +193,24 @@
 
             <div class="row">
                 <mat-form-field class="col-md-2 col-sm-2">
+                    <input matInput placeholder="CKS OFF" type="time" formControlName="cksOff">
+                </mat-form-field>
+                <mat-form-field class="col-md-2 col-sm-2">
                     <input matInput placeholder="Take OFF" type="time" formControlName="takeOff">
                 </mat-form-field>
 
                 <mat-form-field class="col-md-2 col-sm-2">
                     <input matInput placeholder="Landing" type="time" formControlName="landing">
                 </mat-form-field>
-
-                <mat-form-field class="col-md-2 col-sm-2">
-                    <input matInput placeholder="FLT Time" type="text" readonly formControlName="fltTime">
-                </mat-form-field>
-
-
-                <mat-form-field class="col-md-2 col-sm-2">
-                    <input matInput placeholder="CKS OFF" type="time" formControlName="cksOff">
-                </mat-form-field>
-                
                 <mat-form-field class="col-md-2 col-sm-2">
                     <input matInput placeholder="CKS ON" type="time" formControlName="cksOn">
                 </mat-form-field>
-                
-
+                <mat-form-field class="col-md-2 col-sm-2">
+                    <input matInput placeholder="FLT Time" type="text" readonly formControlName="fltTime">
+                </mat-form-field>
                 <mat-form-field class="col-md-2 col-sm-2">
                     <input matInput placeholder="BLK Time" type="text" readonly formControlName="blkTime">
-                </mat-form-field>              
+                </mat-form-field>            
             </div>
 
 
@@ -382,6 +380,7 @@
                     <button mat-mini-fab color="accent" >
                         <mat-icon>delete</mat-icon>
                     </button> -->
+                    <!-- <button (click)="openDialog()"> click</button> -->
                     <button mat-raised-button color="primary" (click)="addToCrewArray()">Add</button>
                 <button mat-raised-button color="accent" (click)="deleteFromCrewArray()">Delete</button>
                 </div>

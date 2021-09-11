@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Select Crew Leg</h2>
+<div class="row">
+    <mat-form-field class="col-md-12 col-sm-12 col-lg-12">
+        <input matInput placeholder="Search" type="text" [formControl]="search">
+    </mat-form-field>
+</div>
+
+<!-- <mat-dialog-content class="mat-typography">    -->
+
+    <div class="table-responsive table-container">
+        <table class="table table-hover">
+            <thead class="log-table">
+                <tr>
+                    <th scope="col">Leg</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Alternate</th>
+                </tr>
+            </thead>
+            <tbody class="">
+                <tr *ngFor="let c of crewLeg$ | async; let i = index" [ngClass]="{'selected-row': c.nmroute === selectedCrew?.nmroute}" (click)="onRowSelect(c)">
+                    <th scope="row">{{c.nmroute}}</th>
+                    <td>{{c.rfrm}}</td>
+                    <td>{{c.rto}}</td>
+                    <td>{{c.altto}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<!-- </mat-dialog-content> -->
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="accent" mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" [disabled]="!selectedCrew" (click)="onSelection()">Select</button>
+</mat-dialog-actions>

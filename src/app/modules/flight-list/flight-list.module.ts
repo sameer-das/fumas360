@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { DropdownDataResolver, FlightListResolverService } from './guards/flight-list-resolver.service';
 import { FlightListService } from './services/flight-list.service';
-import {MultiSelectModule} from 'primeng/multiselect';
+import { CrewlegSearchDialogComponent } from './popup/crewleg-search-dialog/crewleg-search-dialog.component';
 
 
 const routes:Routes = [
@@ -17,11 +17,11 @@ const routes:Routes = [
 
 @NgModule({
   declarations: [
-    FlightListComponent
+    FlightListComponent,
+    CrewlegSearchDialogComponent
   ],
   imports: [
     CommonModule,
-    MultiSelectModule,
     MaterialModule,
     RouterModule.forChild(routes)
   ],

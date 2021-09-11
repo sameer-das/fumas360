@@ -71,14 +71,9 @@ h4 {
   text-decoration: none;
 }
 .crewLeg-lookup-button {
-  position: absolute;
-  top: 1rem;
-  transition: 0.3s;
-  cursor: pointer;  
+  outline: none;
 }
-.crewLeg-lookup-button:hover {
-  color: blue;
-}
+
 /* .page-wrapper {
     height: 1500px;
 }
@@ -136,4 +131,10 @@ div.table-responsive {
   :host ::ng-deep .p-multiselect {
     width: 100%;
  }
+}
+
+
+
+.crewLegInput {
+  padding-left: 0 !important;
 }

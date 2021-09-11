@@ -1,0 +1,13 @@
+thead th {
+    position: sticky;
+    background: #5f757d;
+    color: #93dffd;
+    top: -1px;
+}
+
+div.table-container{
+    max-height: 380px;
+}
+tr.selected-row {
+    background: #ccc;
+}

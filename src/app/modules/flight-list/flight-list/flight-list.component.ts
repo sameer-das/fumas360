@@ -1,6 +1,6 @@
 
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { map, startWith, tap } from 'rxjs/operators';
@@ -8,6 +8,9 @@ import { map, startWith, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 import { FlightListService } from '../services/flight-list.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { CrewlegSearchDialogComponent } from '../popup/crewleg-search-dialog/crewleg-search-dialog.component';
+import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 
 
 
@@ -28,7 +31,8 @@ export class FlightListComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute, 
     private _snackBar: MatSnackBar,
-    private _flightListService: FlightListService) {}
+    private _flightListService: FlightListService,
+    public dialog: MatDialog) {}
 
   customers$: Observable<any> = this._route.data.pipe(
     map((x) => x.dropdowndata.data.customers)
@@ -122,7 +126,7 @@ export class FlightListComponent implements OnInit {
       totalFltTime: new FormControl(),
       totalBlkTime: new FormControl(),
 
-      // Crew Details
+      // Crew Details ^[1-9]\d*(\.\d+)?$
       crew: new FormGroup({
         crewLeg: new FormControl('', Validators.required),
         cksOff: new FormControl(null, Validators.required),
@@ -131,13 +135,13 @@ export class FlightListComponent implements OnInit {
         cksOn: new FormControl(null, Validators.required),
         fltTime: new FormControl(null, Validators.required),
         blkTime: new FormControl(null, Validators.required),
-        paxNo: new FormControl(null, Validators.required),
-        landingWeight: new FormControl(0),
-        baggage: new FormControl(0),
-        cargo: new FormControl(0),
-        takeOffWeight: new FormControl(0),
-        fuelUplift: new FormControl(0),
-        fuelOnboard: new FormControl(0),
+        paxNo: new FormControl(null, [Validators.required,Validators.pattern("^[0-9]*$")]),
+        landingWeight: new FormControl(0, Validators.pattern(/^\d*\.?\d*$/)),
+        baggage: new FormControl(0, Validators.pattern(/^\d*\.?\d*$/)),
+        cargo: new FormControl(0, Validators.pattern(/^\d*\.?\d*$/)),
+        takeOffWeight: new FormControl(0, Validators.pattern(/^\d*\.?\d*$/)),
+        fuelUplift: new FormControl(0, Validators.pattern(/^\d*\.?\d*$/)),
+        fuelOnboard: new FormControl(0, Validators.pattern(/^\d*\.?\d*$/)),
         crewFrom: new FormControl(),
         crewTo: new FormControl(),
         splitDutyFrom: new FormControl(),
@@ -146,8 +150,8 @@ export class FlightListComponent implements OnInit {
         rcptOrAdrNo: new FormControl(),
         supplier: new FormControl(),
         // Crew
-        pilot: new FormControl(),
-        officer: new FormControl(),
+        pilot: new FormControl('',Validators.required),
+        officer: new FormControl('',Validators.required),
         attendant: new FormControl(),
         crew1: new FormControl(''),
         crew2: new FormControl(''),
@@ -181,8 +185,7 @@ export class FlightListComponent implements OnInit {
     this._route.data.subscribe((d) => {
       console.log(d);
       const autoOrderNo = d.dropdowndata.data.autoOrderNo;
-      const posted = d.flightdata.data.flightLog.posted;
-
+      const posted = d.flightdata?.data?.flightLog?.posted || 0;
       if (d.flightdata !== 0) {
         // edit mode
         console.log('edit mode, posted',posted);
@@ -235,8 +238,8 @@ export class FlightListComponent implements OnInit {
     });
   }
 
-  displayCustomerName = (customer: any): string =>
-    customer && customer.names ? customer.names : '';
+  displayCustomerName = (customer: any): string => customer && customer.names ? customer.names : ''
+
   displayRegistratonName = (registration: any): string =>
     registration && registration.ainfo ? registration.ainfo : '';
   displayCrewLeg = (crew: any): string =>
@@ -856,5 +859,20 @@ export class FlightListComponent implements OnInit {
   }
 
 
-  
+  openDialog() {
+    const dialogRef:MatDialogRef<CrewlegSearchDialogComponent> = this.dialog.open(CrewlegSearchDialogComponent,{
+      data: this._route.data.pipe(map((x) => x.dropdowndata.data.crewLegs))
+   })
+
+   dialogRef.afterClosed().subscribe((dialogData) => {
+      if(dialogData && dialogData.data) {
+        console.log(dialogData)
+        this.formGroup.get('crew')?.patchValue({crewLeg: dialogData.data})
+      }
+    })
+  }
+
 }
+
+
+
