@@ -29,10 +29,10 @@ export class FlightListComponent implements OnInit {
   filteredRegistrationOptions!: Observable<any[]>;
   filteredCrewLegOptions!: Observable<any[]>;
 
-  constructor(private _route: ActivatedRoute, 
+  constructor(private _route: ActivatedRoute,
     private _snackBar: MatSnackBar,
     private _flightListService: FlightListService,
-    public dialog: MatDialog) {}
+    public dialog: MatDialog) { }
 
   customers$: Observable<any> = this._route.data.pipe(
     map((x) => x.dropdowndata.data.customers)
@@ -55,7 +55,7 @@ export class FlightListComponent implements OnInit {
   officers!: any[];
   crews!: any[];
 
-  autoOrderNo:string = '0';
+  autoOrderNo: string = '0';
 
   filteredPilots!: Observable<any>;
   filteredOfficers!: Observable<any>;
@@ -135,7 +135,7 @@ export class FlightListComponent implements OnInit {
         cksOn: new FormControl(null, Validators.required),
         fltTime: new FormControl(null, Validators.required),
         blkTime: new FormControl(null, Validators.required),
-        paxNo: new FormControl(null, [Validators.required,Validators.pattern("^[0-9]*$")]),
+        paxNo: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$")]),
         landingWeight: new FormControl(0, Validators.pattern(/^\d*\.?\d*$/)),
         baggage: new FormControl(0, Validators.pattern(/^\d*\.?\d*$/)),
         cargo: new FormControl(0, Validators.pattern(/^\d*\.?\d*$/)),
@@ -150,9 +150,9 @@ export class FlightListComponent implements OnInit {
         rcptOrAdrNo: new FormControl(),
         supplier: new FormControl(),
         // Crew
-        pilot: new FormControl('',Validators.required),
-        officer: new FormControl('',Validators.required),
-        attendant: new FormControl(),
+        pilot: new FormControl('', Validators.required),
+        officer: new FormControl(''),
+        attendant: new FormControl(''),
         crew1: new FormControl(''),
         crew2: new FormControl(''),
         crew3: new FormControl(''),
@@ -178,7 +178,7 @@ export class FlightListComponent implements OnInit {
     this._getFlightTime();
     this._getBlkTime();
 
-    
+
 
     // this.formGroup.get('customer')?.setValue({cid: 7, code: "AR07", names: "MUKTAR"})
 
@@ -188,7 +188,7 @@ export class FlightListComponent implements OnInit {
       const posted = d.flightdata?.data?.flightLog?.posted || 0;
       if (d.flightdata !== 0) {
         // edit mode
-        console.log('edit mode, posted',posted);
+        console.log('edit mode, posted', posted);
         this.isNew = true;
         this.nameReadonly = true;
 
@@ -196,39 +196,39 @@ export class FlightListComponent implements OnInit {
         this.patchRegistration(d.flightdata.data.flightLog.flightreg);
         this.patchNumber(d.flightdata.data.flightLog.orderno);
         this.loadCrewArray(d.flightdata.data.flightLogDetail);
-        this.formGroup.patchValue({qno: d.flightdata.data.flightLog.qno});
-        this.formGroup.patchValue({date: new Date(d.flightdata.data.flightLog.tdate)});
-        this.formGroup.patchValue({nextCheckDate: new Date(d.flightdata.data.flightLog.checkdate)});        
-        this.formGroup.patchValue({preflightDone: !!d.flightdata.data.flightLog.cpreflight});
-        this.formGroup.patchValue({cmdtAcceptance: !!d.flightdata.data.flightLog.ccmdt});
-        this.formGroup.patchValue({nonCommercial: !!d.flightdata.data.flightLog.ccommercial});
-        this.formGroup.patchValue({deferDefect: !!d.flightdata.data.flightLog.defect});
-        this.formGroup.patchValue({hasDelay: !!d.flightdata.data.flightLog.hasdelay});
+        this.formGroup.patchValue({ qno: d.flightdata.data.flightLog.qno });
+        this.formGroup.patchValue({ date: new Date(d.flightdata.data.flightLog.tdate) });
+        this.formGroup.patchValue({ nextCheckDate: new Date(d.flightdata.data.flightLog.checkdate) });
+        this.formGroup.patchValue({ preflightDone: !!d.flightdata.data.flightLog.cpreflight });
+        this.formGroup.patchValue({ cmdtAcceptance: !!d.flightdata.data.flightLog.ccmdt });
+        this.formGroup.patchValue({ nonCommercial: !!d.flightdata.data.flightLog.ccommercial });
+        this.formGroup.patchValue({ deferDefect: !!d.flightdata.data.flightLog.defect });
+        this.formGroup.patchValue({ hasDelay: !!d.flightdata.data.flightLog.hasdelay });
 
-        this.formGroup.patchValue({delayBy: d.flightdata.data.flightLog.delayby});
-        this.formGroup.patchValue({delayAirport: d.flightdata.data.flightLog.airport});
-        this.formGroup.patchValue({deOrCx: d.flightdata.data.flightLog.decx});
-        this.formGroup.patchValue({delayReason: d.flightdata.data.flightLog.delayreason});
-        this.formGroup.patchValue({delayTime: d.flightdata.data.flightLog.delaytime});
-        this.formGroup.patchValue({delayCorrectiveAction: d.flightdata.data.flightLog.correctiveaction});
-        this.formGroup.patchValue({engine1: d.flightdata.data.flightLog.engine1});
-        this.formGroup.patchValue({engine2: d.flightdata.data.flightLog.engine2});
-        this.formGroup.patchValue({oilengine1: d.flightdata.data.flightLog.oilengine1});
-        this.formGroup.patchValue({oilengine2: d.flightdata.data.flightLog.oilengine2});
-        this.formGroup.patchValue({propserial1: d.flightdata.data.flightLog.propserial1});
-        this.formGroup.patchValue({propserial2: d.flightdata.data.flightLog.propserial2});
+        this.formGroup.patchValue({ delayBy: d.flightdata.data.flightLog.delayby });
+        this.formGroup.patchValue({ delayAirport: d.flightdata.data.flightLog.airport });
+        this.formGroup.patchValue({ deOrCx: d.flightdata.data.flightLog.decx });
+        this.formGroup.patchValue({ delayReason: d.flightdata.data.flightLog.delayreason });
+        this.formGroup.patchValue({ delayTime: d.flightdata.data.flightLog.delaytime });
+        this.formGroup.patchValue({ delayCorrectiveAction: d.flightdata.data.flightLog.correctiveaction });
+        this.formGroup.patchValue({ engine1: d.flightdata.data.flightLog.engine1 });
+        this.formGroup.patchValue({ engine2: d.flightdata.data.flightLog.engine2 });
+        this.formGroup.patchValue({ oilengine1: d.flightdata.data.flightLog.oilengine1 });
+        this.formGroup.patchValue({ oilengine2: d.flightdata.data.flightLog.oilengine2 });
+        this.formGroup.patchValue({ propserial1: d.flightdata.data.flightLog.propserial1 });
+        this.formGroup.patchValue({ propserial2: d.flightdata.data.flightLog.propserial2 });
 
         this.totalBlkTime = d.flightdata.data.flightLog.totalflighttime;
         this.totalFlightTime = d.flightdata.data.flightLog.totalairtime;
 
-        if(posted === 1) {
+        if (posted === 1) {
           this.formGroup.disable();
           this.isButtonsVisible = false;
         }
-        
+
       } else {
-        console.log('normal mode ' , autoOrderNo);
-        if(autoOrderNo === '0') {
+        console.log('normal mode ', autoOrderNo);
+        if (autoOrderNo === '0') {
           this.nameReadonly = false;
         } else {
           this.nameReadonly = true;
@@ -455,37 +455,97 @@ export class FlightListComponent implements OnInit {
     );
   }
 
+  validateDropDown() {
+    console.log(this.formGroup.value);   
+    const { customer, registration, crew } = this.formGroup.value;
+    const { crewLeg, pilot, officer, attendant, crew1, crew2, crew3, crew4, crew5, crew6 } = crew;
+    if (typeof customer === 'string') {
+      this.formGroup.get('customer')?.setErrors({ invalid: true });
+       alert('Customer is invalid');
+       return false;
+    }
+    if (typeof registration === 'string') {
+      this.formGroup.get('registration')?.setErrors({ invalid: true });
+       alert('registration is invalid');
+       return false;
+    }
+    if (typeof crewLeg === 'string') {
+      this.formGroup.get('crewLeg')?.setErrors({ invalid: true });
+       alert('crewLeg is invalid');
+       return false;
+    }
+    if (typeof pilot === 'string') {
+      this.formGroup.get('pilot')?.setErrors({ invalid: true });
+       alert('pilot is invalid');
+       return false;
+    }
+    if (typeof officer === 'string') {
+      this.formGroup.get('officer')?.setErrors({ invalid: true });
+       alert('officer is invalid');
+       return false;
+    }
+    if (typeof attendant === 'string' && attendant!='') {
+      this.formGroup.get('attendant')?.setErrors({ invalid: true });
+       alert('attendant is invalid');
+       return false;
+    }
+    if (typeof crew1 === 'string' && crew1!='') {
+      this.formGroup.get('crew1')?.setErrors({ invalid: true });
+       alert('crew1 is invalid');
+       return false;
+    }
+    if (typeof crew2 === 'string' && crew2!='') {
+      this.formGroup.get('crew2')?.setErrors({ invalid: true });
+       alert('crew2 is invalid');
+       return false;
+    }
+    if (typeof crew3 === 'string' && crew3!='') {
+      this.formGroup.get('crew3')?.setErrors({ invalid: true });
+       alert('crew3 is invalid');
+       return false;
+    }
+    if (typeof crew4 === 'string' && crew4!='') {
+      this.formGroup.get('crew4')?.setErrors({ invalid: true });
+       alert('crew4 is invalid');
+       return false;
+    }
+    if (typeof crew5 === 'string' && crew5!='') {
+      this.formGroup.get('crew5')?.setErrors({ invalid: true });
+       alert('crew5 is invalid');
+       return false;
+    }
+    if (typeof crew6 === 'string' && crew6!='') {
+      this.formGroup.get('crew6')?.setErrors({ invalid: true });
+       alert('crew6 is invalid');
+       return false;
+    }
+    return true;
+  }
   addToCrewArray() {
     this.formGroup.markAsTouched();
-    console.log(this.formGroup.get('crew')?.value);
-    
-
-    if (this.formGroup.valid) {
-
-      if(this.selectedCrew && this.selectedCrew.id) {
+    console.log(this.formGroup.get('crew')?.value);      
+    if (this.validateDropDown() && this.formGroup.valid ) {
+      if (this.selectedCrew && this.selectedCrew.id) {
         const newObj = {
-           ...this.selectedCrew, ...this.formGroup.get('crew')?.value
-         }
-         this.crewList.splice(this.selectedCrew.id - 1, 1, newObj);
-         this.totalBlkTime += (+this.formGroup.get('crew')?.value.blkTime - +this.selectedCrew.blkTime);
-         this.totalFlightTime += (+this.formGroup.get('crew')?.value.fltTime - +this.selectedCrew.fltTime);
-         this.patchCrewToNull();
-         this.selectedCrew = null;
-       } else {
-   
-         this.crewList.push({
-           ...this.formGroup.get('crew')?.value,
-           id: this.crewList.length + 1,
-           fdid: 0
-         });
-         this.totalBlkTime += +this.formGroup.get('crew')?.value.blkTime;
-         this.totalFlightTime += +this.formGroup.get('crew')?.value.fltTime;
-         this.patchCrewToNull();
-         this.selectedCrew = null;
-       }
-
-       
-
+          ...this.selectedCrew, ...this.formGroup.get('crew')?.value
+        }
+        this.crewList.splice(this.selectedCrew.id - 1, 1, newObj);
+        this.totalBlkTime += (+this.formGroup.get('crew')?.value.blkTime - +this.selectedCrew.blkTime);
+        this.totalFlightTime += (+this.formGroup.get('crew')?.value.fltTime - +this.selectedCrew.fltTime);
+        this.patchCrewToNull();
+        this.selectedCrew = null;
+      } else {
+        this.crewList.push({
+          ...this.formGroup.get('crew')?.value,
+          id: this.crewList.length + 1,
+          fdid: 0,
+          route: this.formGroup.get('crew')?.value.crewLeg.nmroute
+        });
+        this.totalBlkTime += +this.formGroup.get('crew')?.value.blkTime;
+        this.totalFlightTime += +this.formGroup.get('crew')?.value.fltTime;
+        this.patchCrewToNull();
+        this.selectedCrew = null;
+      }
       // const c = this.formGroup.controls.crew as FormGroup;
       // c.reset();
       // Object.keys(c.controls).forEach(key => {
@@ -497,14 +557,12 @@ export class FlightListComponent implements OnInit {
   deleteFromCrewArray() {
     if (this.selectedCrew && this.selectedCrew.id) {
       this.crewList.splice(this.selectedCrew.id - 1, 1);
-
       this.totalBlkTime -= +this.selectedCrew.blkTime;
       this.totalFlightTime -= +this.selectedCrew.fltTime;
-
       this.patchCrewToNull();
       this.selectedCrew = null;
     }
-    
+
   }
   selectedCrew!: any;
   loadRowtoCrewForm(crew: any) {
@@ -569,19 +627,19 @@ export class FlightListComponent implements OnInit {
     this.formGroup.patchValue({ number: num });
   }
 
-  
+
 
   loadCrewArray(crewArr: any[]) {
     crewArr.forEach((curr: any, ind) => {
       var currentCrewLeg;
       this.crewLegs$.subscribe((cl: any[]) => {
-       currentCrewLeg = cl.filter((c:any) => c.nmroute === curr.route);         
+        currentCrewLeg = cl.filter((c: any) => c.nmroute === curr.route);
       });
 
       this.crewList.push({
         crewLeg: this._getCrewLeg(curr.route),
         route: curr.route,
-        cksOff: curr.out_time, 
+        cksOff: curr.out_time,
         takeOff: curr.up_time,
         landing: curr.down_time,
         cksOn: curr.in_time,
@@ -617,41 +675,41 @@ export class FlightListComponent implements OnInit {
   }
 
 
-  private _getCrewLeg(route:string) {
-    let currentCrewLeg:any[] = [];
-      this.crewLegs$.subscribe((cl: any[]) => {
-       currentCrewLeg = cl.filter((c:any) => c.nmroute === route);         
-      });
-    if(currentCrewLeg.length > 0)
+  private _getCrewLeg(route: string) {
+    let currentCrewLeg: any[] = [];
+    this.crewLegs$.subscribe((cl: any[]) => {
+      currentCrewLeg = cl.filter((c: any) => c.nmroute === route);
+    });
+    if (currentCrewLeg.length > 0)
       return currentCrewLeg[0];
     return '';
   }
 
 
-  private _getPilot(name:string) {
+  private _getPilot(name: string) {
     const currentPilot = this.pilots.filter(p => p.code === name);
-    if(currentPilot.length > 0)
+    if (currentPilot.length > 0)
       return currentPilot[0];
     return '';
   }
 
-  private _getOfficer(name:string) {
+  private _getOfficer(name: string) {
     const currentOfficer = this.officers.filter(p => p.code === name);
-    if(currentOfficer.length > 0)
+    if (currentOfficer.length > 0)
       return currentOfficer[0];
     return '';
   }
 
-  private _getAttendant(name:string) {
+  private _getAttendant(name: string) {
     const currentAttendant = this.attendants.filter(p => p.code === name);
-    if(currentAttendant.length > 0)
+    if (currentAttendant.length > 0)
       return currentAttendant[0];
     return '';
   }
 
   private _getCrew(name: string) {
     const currentCrew = this.crews.filter(p => p.code === name);
-    if(currentCrew.length > 0)
+    if (currentCrew.length > 0)
       return currentCrew[0];
     return '';
   }
@@ -661,22 +719,22 @@ export class FlightListComponent implements OnInit {
     const takeOff$ = crewFormGroup.controls['takeOff'].valueChanges;
     const landing$ = crewFormGroup.controls['landing'].valueChanges;
 
-    combineLatest([landing$,takeOff$]).subscribe(([l,t]) => {
+    combineLatest([landing$, takeOff$]).subscribe(([l, t]) => {
       // console.log(l, t);
-      if(!l || !t ){
-         crewFormGroup.patchValue({'fltTime': null})
-      } else{
+      if (!l || !t) {
+        crewFormGroup.patchValue({ 'fltTime': null })
+      } else {
         const takeOff = moment.duration(t);
         const landing = moment.duration(l);
         const diff = landing.subtract(takeOff)
 
-        if(diff.minutes() >= 0 && diff.hours() >= 0){
+        if (diff.minutes() >= 0 && diff.hours() >= 0) {
           const min = diff.asMinutes();
-          const x = (min /60 ).toFixed(2)
+          const x = (min / 60).toFixed(2)
           // console.log(x.padStart(5,'0').replace('.',':'));
-          crewFormGroup.patchValue({'fltTime': x.padStart(5,'0')})
+          crewFormGroup.patchValue({ 'fltTime': x.padStart(5, '0') })
         } else {
-          crewFormGroup.patchValue({'fltTime': null})
+          crewFormGroup.patchValue({ 'fltTime': null })
         }
       }
     })
@@ -689,44 +747,54 @@ export class FlightListComponent implements OnInit {
     const cksOff$ = crewFormGroup.controls['cksOff'].valueChanges;
     const cksOn$ = crewFormGroup.controls['cksOn'].valueChanges;
 
-    combineLatest([cksOn$,cksOff$]).subscribe(([ckOn,ckOff]) => {
+    combineLatest([cksOn$, cksOff$]).subscribe(([ckOn, ckOff]) => {
       // console.log(ckOn, ckOff);
-      if(!ckOn || !ckOff){
-         crewFormGroup.patchValue({'blkTime': null})
-      } else{
+      if (!ckOn || !ckOff) {
+        crewFormGroup.patchValue({ 'blkTime': null })
+      } else {
         const cksOff = moment.duration(ckOff);
         const cksOn = moment.duration(ckOn);
         const diff = cksOn.subtract(cksOff)
         // console.log(diff)
-        if(diff.minutes() >= 0 && diff.hours() >= 0){
+        if (diff.minutes() >= 0 && diff.hours() >= 0) {
           const min = diff.asMinutes();
           // console.log(min);
           const x = min / 60;
           // console.log(x.padStart(5,'0').replace('.',':'));
-          crewFormGroup.patchValue({'blkTime': x.toFixed(2).padStart(5,'0')})
+          crewFormGroup.patchValue({ 'blkTime': x.toFixed(2).padStart(5, '0') })
         } else {
-          crewFormGroup.patchValue({'blkTime': null})
+          crewFormGroup.patchValue({ 'blkTime': null })
         }
       }
     })
   }
 
 
-  onSave() {   
+  onSave() {
+    const { customer, registration } = this.formGroup.value;
+    
+    if (typeof customer === 'string') {
+      this.formGroup.get('customer')?.setErrors({ invalid: true });
+      return alert('Customer is invalid');        
+    }
+    if (typeof registration === 'string') {
+      this.formGroup.get('registration')?.setErrors({ invalid: true });
+      return alert('Registration is invalid');        
+    }
     const postData = this.createPayloadForSaveAndApprove();
     console.dir(postData);
 
     console.log(JSON.stringify(postData))
 
     this._flightListService.postFlightLogOperations(postData)
-    .subscribe(d => {
-      console.log(d)
-      alert(d.data)
-      // this._snackBar.open(d.data);
-    }, err => {
-      console.log(err)
-      alert(err.message)
-    });
+      .subscribe(d => {
+        console.log(d)
+        alert(d.data)
+        // this._snackBar.open(d.data);
+      }, err => {
+        console.log(err)
+        alert(err.message)
+      });
   }
 
   onApprove() {
@@ -736,14 +804,14 @@ export class FlightListComponent implements OnInit {
     console.log(JSON.stringify(postData))
 
     this._flightListService.postFlightLogOperations(postData)
-    .subscribe(d => {
-      console.log(d)
-      alert(d.data)
-      // this._snackBar.open(d.data);
-    }, err => {
-      console.log(err)
-      alert(err.message)
-    });
+      .subscribe(d => {
+        console.log(d)
+        alert(d.data)
+        // this._snackBar.open(d.data);
+      }, err => {
+        console.log(err)
+        alert(err.message)
+      });
   }
 
 
@@ -770,7 +838,7 @@ export class FlightListComponent implements OnInit {
         "lfrom": curr.crewFrom,
         "lto": curr.crewTo,
         "rctno": curr.rcptOrAdrNo,
-        "supplierno": curr.supplier.toString(),
+        "supplierno": curr.supplier?.toString(),
         "flightno": curr.flightNo,
         "captain": curr.pilot?.code,
         "officer": curr.officer?.code,
@@ -806,8 +874,8 @@ export class FlightListComponent implements OnInit {
         "code": this.formGroup.value.customer.code,
         "tdate": this.formGroup.value.date.toISOString(),
         "predatedate": this.formGroup.value.date.toISOString(),
-        "cmdtdate":  this.formGroup.value.date.toISOString(),
-        "checkdate":  this.formGroup.value.nextCheckDate.toISOString(),
+        "cmdtdate": this.formGroup.value.date.toISOString(),
+        "checkdate": this.formGroup.value.nextCheckDate.toISOString(),
         "defect": +this.formGroup.value.deferDefect,
         "captain": null,
         "officer": null,
@@ -831,7 +899,7 @@ export class FlightListComponent implements OnInit {
         "crew6": null,
         "qno": this.formGroup.value.qno,
         "cpreflight": +this.formGroup.value.preflightDone,
-        "ccmdt":  +this.formGroup.value.cmdtAcceptance,
+        "ccmdt": +this.formGroup.value.cmdtAcceptance,
         "sroute": null,
         "invoiced_hrs": 0.0,
         "ccommercial": +this.formGroup.value.nonCommercial,
@@ -860,14 +928,14 @@ export class FlightListComponent implements OnInit {
 
 
   openDialog() {
-    const dialogRef:MatDialogRef<CrewlegSearchDialogComponent> = this.dialog.open(CrewlegSearchDialogComponent,{
+    const dialogRef: MatDialogRef<CrewlegSearchDialogComponent> = this.dialog.open(CrewlegSearchDialogComponent, {
       data: this._route.data.pipe(map((x) => x.dropdowndata.data.crewLegs))
-   })
+    })
 
-   dialogRef.afterClosed().subscribe((dialogData) => {
-      if(dialogData && dialogData.data) {
+    dialogRef.afterClosed().subscribe((dialogData) => {
+      if (dialogData && dialogData.data) {
         console.log(dialogData)
-        this.formGroup.get('crew')?.patchValue({crewLeg: dialogData.data})
+        this.formGroup.get('crew')?.patchValue({ crewLeg: dialogData.data })
       }
     })
   }

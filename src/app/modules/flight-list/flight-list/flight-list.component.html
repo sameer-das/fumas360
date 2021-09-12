@@ -183,14 +183,7 @@
                     <!-- [value]="formGroup.get('crew')?.get('crewLeg')?.value?.rto || null"  -->
                     <input matInput placeholder="To" readonly type="text" formControlName="crewTo">
                 </mat-form-field>
-
-
-
-                
-
             </div>
-
-
             <div class="row">
                 <mat-form-field class="col-md-2 col-sm-2">
                     <input matInput placeholder="CKS OFF" type="time" formControlName="cksOff">
@@ -213,23 +206,21 @@
                 </mat-form-field>            
             </div>
 
-
-
             <div class="row">
                 <mat-form-field class="col-4">
-                    <input matInput placeholder="Pax No" type="text" formControlName="paxNo">
+                    <input matInput placeholder="Pax No" type="number" formControlName="paxNo">
                 </mat-form-field>
                 <mat-form-field class="col-2">
-                    <input matInput placeholder="Landing (W)" type="text" formControlName="landingWeight">
+                    <input matInput placeholder="Landing (W)" type="number" formControlName="landingWeight">
                 </mat-form-field>
                 <mat-form-field class="col-2">
-                    <input matInput placeholder="Take Off (W)" type="text" formControlName="takeOffWeight">
+                    <input matInput placeholder="Take Off (W)" type="number" formControlName="takeOffWeight">
                 </mat-form-field>
                 <mat-form-field class="col-2">
-                    <input matInput placeholder="Baggage" type="text" formControlName="baggage">
+                    <input matInput placeholder="Baggage" type="number" formControlName="baggage">
                 </mat-form-field>
                 <mat-form-field class="col-2">
-                    <input matInput placeholder="Cargo" type="text" formControlName="cargo">
+                    <input matInput placeholder="Cargo" type="number" formControlName="cargo">
                 </mat-form-field>
             </div>
 
