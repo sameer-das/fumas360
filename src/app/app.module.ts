@@ -12,13 +12,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { MenuItemComponent } from './components/menu-item/menu-item.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
     MenuItemComponent,
-    DashboardComponent
+    DashboardComponent, 
   ],
   imports: [
     BrowserModule,

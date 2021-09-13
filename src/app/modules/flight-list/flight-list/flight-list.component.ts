@@ -10,7 +10,7 @@ import { FlightListService } from '../services/flight-list.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CrewlegSearchDialogComponent } from '../popup/crewleg-search-dialog/crewleg-search-dialog.component';
-import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { AlertPopupComponent } from 'src/app/shared/components/alert-popup/alert-popup.component';
 
 
 
@@ -461,62 +461,63 @@ export class FlightListComponent implements OnInit {
     const { crewLeg, pilot, officer, attendant, crew1, crew2, crew3, crew4, crew5, crew6 } = crew;
     if (typeof customer === 'string') {
       this.formGroup.get('customer')?.setErrors({ invalid: true });
-       alert('Customer is invalid');
+       this.openAlert('Invalid entry in Customer field!');
        return false;
     }
     if (typeof registration === 'string') {
       this.formGroup.get('registration')?.setErrors({ invalid: true });
-       alert('registration is invalid');
+      //  alert('registration is invalid');
+       this.openAlert('Invalid entry in Registration field!');
        return false;
     }
     if (typeof crewLeg === 'string') {
       this.formGroup.get('crewLeg')?.setErrors({ invalid: true });
-       alert('crewLeg is invalid');
+      this.openAlert('Invalid entry in Crew Leg field!');
        return false;
     }
     if (typeof pilot === 'string') {
       this.formGroup.get('pilot')?.setErrors({ invalid: true });
-       alert('pilot is invalid');
+      this.openAlert('Invalid entry in Pilot field!');
        return false;
     }
-    if (typeof officer === 'string') {
+    if (typeof officer === 'string' && officer!='') {
       this.formGroup.get('officer')?.setErrors({ invalid: true });
-       alert('officer is invalid');
+      this.openAlert('Invalid entry in Officer field!');
        return false;
     }
     if (typeof attendant === 'string' && attendant!='') {
       this.formGroup.get('attendant')?.setErrors({ invalid: true });
-       alert('attendant is invalid');
+      this.openAlert('Invalid entry in Attendant field!');
        return false;
     }
     if (typeof crew1 === 'string' && crew1!='') {
       this.formGroup.get('crew1')?.setErrors({ invalid: true });
-       alert('crew1 is invalid');
+      this.openAlert('Invalid entry in Crew 1 field!');
        return false;
     }
     if (typeof crew2 === 'string' && crew2!='') {
       this.formGroup.get('crew2')?.setErrors({ invalid: true });
-       alert('crew2 is invalid');
+      this.openAlert('Invalid entry in Crew 2 field!');
        return false;
     }
     if (typeof crew3 === 'string' && crew3!='') {
       this.formGroup.get('crew3')?.setErrors({ invalid: true });
-       alert('crew3 is invalid');
+      this.openAlert('Invalid entry in Crew 3 field!');
        return false;
     }
     if (typeof crew4 === 'string' && crew4!='') {
       this.formGroup.get('crew4')?.setErrors({ invalid: true });
-       alert('crew4 is invalid');
+      this.openAlert('Invalid entry in Crew 4 field!');
        return false;
     }
     if (typeof crew5 === 'string' && crew5!='') {
       this.formGroup.get('crew5')?.setErrors({ invalid: true });
-       alert('crew5 is invalid');
+      this.openAlert('Invalid entry in Crew 5 field!');
        return false;
     }
     if (typeof crew6 === 'string' && crew6!='') {
       this.formGroup.get('crew6')?.setErrors({ invalid: true });
-       alert('crew6 is invalid');
+      this.openAlert('Invalid entry in Crew 6 field!');
        return false;
     }
     return true;
@@ -775,11 +776,13 @@ export class FlightListComponent implements OnInit {
     
     if (typeof customer === 'string') {
       this.formGroup.get('customer')?.setErrors({ invalid: true });
-      return alert('Customer is invalid');        
+      this.openAlert('Invalid entry in Customer field!');
+      return;
     }
     if (typeof registration === 'string') {
       this.formGroup.get('registration')?.setErrors({ invalid: true });
-      return alert('Registration is invalid');        
+      this.openAlert('Invalid entry in Registration field!');
+      return;     
     }
     const postData = this.createPayloadForSaveAndApprove();
     console.dir(postData);
@@ -938,6 +941,14 @@ export class FlightListComponent implements OnInit {
         this.formGroup.get('crew')?.patchValue({ crewLeg: dialogData.data })
       }
     })
+  }
+
+  openAlert(message:string) {
+    let dialogRef = this.dialog.open(AlertPopupComponent, {
+      height: '180px',
+      width: '380px',
+      data: {title:'Alert', message}
+    });
   }
 
 }

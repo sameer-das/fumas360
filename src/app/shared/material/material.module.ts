@@ -47,6 +47,7 @@ const material = [
   MatDialogModule
 ];
 
+
 export const MY_FORMATS = {
   parse: {
       dateInput: 'LL'
@@ -61,7 +62,7 @@ export const MY_FORMATS = {
 @NgModule({
   declarations: [],
   imports: [...material, ReactiveFormsModule],
-  exports: [...material,ReactiveFormsModule],
+  exports: [...material,ReactiveFormsModule,],
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
 { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }

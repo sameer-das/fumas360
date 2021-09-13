@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlightListComponent } from './flight-list/flight-list.component';
 import { RouterModule, Routes } from '@angular/router';
-import { MaterialModule } from 'src/app/shared/material/material.module';
 import { DropdownDataResolver, FlightListResolverService } from './guards/flight-list-resolver.service';
 import { FlightListService } from './services/flight-list.service';
 import { CrewlegSearchDialogComponent } from './popup/crewleg-search-dialog/crewleg-search-dialog.component';
-
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes:Routes = [
   {path:'',
@@ -18,12 +17,12 @@ const routes:Routes = [
 @NgModule({
   declarations: [
     FlightListComponent,
-    CrewlegSearchDialogComponent
-  ],
+    CrewlegSearchDialogComponent,
+    ],
   imports: [
     CommonModule,
-    MaterialModule,
-    RouterModule.forChild(routes)
+    SharedModule,
+    RouterModule.forChild(routes),
   ],
   providers: [FlightListResolverService,DropdownDataResolver, FlightListService]
 })
