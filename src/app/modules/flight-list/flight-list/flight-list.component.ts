@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CrewlegSearchDialogComponent } from '../popup/crewleg-search-dialog/crewleg-search-dialog.component';
 import { AlertPopupComponent } from 'src/app/shared/components/alert-popup/alert-popup.component';
+import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/confirm-popup.component';
 
 
 
@@ -48,6 +49,9 @@ export class FlightListComponent implements OnInit {
   );
   suppliers$: Observable<any> = this._route.data.pipe(
     map((x) => x.dropdowndata.data.suppliers)
+  );
+  oilUplifts$: Observable<any> = this._route.data.pipe(
+    map((x) => x.dropdowndata.data.oilUplifts)
   );
 
   pilots!: any[];
@@ -177,7 +181,7 @@ export class FlightListComponent implements OnInit {
 
     this._getFlightTime();
     this._getBlkTime();
-
+    this._patchOilUplift();
 
 
     // this.formGroup.get('customer')?.setValue({cid: 7, code: "AR07", names: "MUKTAR"})
@@ -792,29 +796,42 @@ export class FlightListComponent implements OnInit {
     this._flightListService.postFlightLogOperations(postData)
       .subscribe(d => {
         console.log(d)
-        alert(d.data)
-        // this._snackBar.open(d.data);
+        this.openAlert(d.data)
       }, err => {
         console.log(err)
-        alert(err.message)
+        this.openAlert(err.message)
       });
   }
 
   onApprove() {
-    const postData = this.createPayloadForSaveAndApprove(false);
-    console.dir(postData);
+    const dialogRef = this.dialog.open(ConfirmPopupComponent, 
+      {
+        height: '180px',
+        width: '380px',
+        data: {message: 'Are you sure to approve this quotation?'}
+      }
+    )
 
-    console.log(JSON.stringify(postData))
-
-    this._flightListService.postFlightLogOperations(postData)
-      .subscribe(d => {
-        console.log(d)
-        alert(d.data)
-        // this._snackBar.open(d.data);
-      }, err => {
-        console.log(err)
-        alert(err.message)
-      });
+    dialogRef.afterClosed().subscribe((confirm:boolean) => {
+      if(confirm) {
+        const postData = this.createPayloadForSaveAndApprove(false);
+        console.dir(postData);
+    
+        console.log(JSON.stringify(postData))
+    
+        this._flightListService.postFlightLogOperations(postData)
+          .subscribe(d => {
+            console.log(d)
+            this.openAlert(d.data);
+            // this._snackBar.open(d.data);
+          }, err => {
+            console.log(err)
+            this.openAlert(err.message);
+            // alert(err.message)
+          });
+      }
+    })
+    
   }
 
 
@@ -949,6 +966,34 @@ export class FlightListComponent implements OnInit {
       width: '380px',
       data: {title:'Alert', message}
     });
+  }
+
+
+  _patchOilUplift(){
+    const flightRegistration$ = this.formGroup.controls['registration'].valueChanges;
+
+    combineLatest([flightRegistration$, this.oilUplifts$]).subscribe(([f,o]) => {
+      if(typeof f !== 'string'){
+        const oiluplift = o.filter((curr:any) => f.ainfo === curr.loc);
+
+        if(oiluplift.length > 0) {
+          this.formGroup.patchValue({
+            engine1: oiluplift.find((c:any) => c.csale === 'Engine' && c.position == 1)?.assserialno,
+            propserial1: oiluplift.find((c:any) => c.csale === 'Propeller' && c.position == 1)?.assserialno,
+            engine2: oiluplift.find((c:any) => c.csale === 'Engine' && c.position == 2)?.assserialno,
+            propserial2: oiluplift.find((c:any) => c.csale === 'Propeller' && c.position == 2)?.assserialno,
+          })
+        } else {
+          this.formGroup.patchValue({
+            engine1: '',
+            propserial1: '',
+            engine2: '',
+            propserial2: '',
+          })
+        }
+      }
+    })
+    
   }
 
 }

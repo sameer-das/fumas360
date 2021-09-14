@@ -42,6 +42,5 @@ export class CrewlegSearchDialogComponent implements OnInit {
   } 
   onSelection() {
   this.dialogRef.close({data: this.selectedCrew});
-
   }
 }

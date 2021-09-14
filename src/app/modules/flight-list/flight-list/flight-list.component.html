@@ -120,12 +120,12 @@
                     <mat-tab label="Oil Uplift">
                         <div class="tab-content-row mt9px">
                             <mat-form-field class="col-6">
-                                <input matInput placeholder="Engine Serial" type="text" 
+                                <input matInput placeholder="Engine Serial" type="text"  readonly
                                 formControlName="engine1">
                             </mat-form-field>
 
                             <mat-form-field class="col-6">
-                                <input matInput placeholder="Engine Serial No. 2" type="text"
+                                <input matInput placeholder="Engine Serial No. 2" readonly type="text"
                                 formControlName="engine2">
                             </mat-form-field>
                         </div>
@@ -139,11 +139,11 @@
                         </div>
                         <div class="tab-content-row">
                             <mat-form-field class="col-6">
-                                <input matInput placeholder="Prop Serial No." type="text" formControlName="propserial1">
+                                <input matInput placeholder="Prop Serial No." readonly type="text" formControlName="propserial1">
                             </mat-form-field>
 
                             <mat-form-field class="col-6">
-                                <input matInput placeholder="Prop Serial No." type="text" formControlName="propserial2">
+                                <input matInput placeholder="Prop Serial No." readonly type="text" formControlName="propserial2">
                             </mat-form-field>
                         </div>
                     </mat-tab>
@@ -208,29 +208,29 @@
 
             <div class="row">
                 <mat-form-field class="col-4">
-                    <input matInput placeholder="Pax No" type="number" formControlName="paxNo">
+                    <input matInput placeholder="Pax No" min="0" type="number" formControlName="paxNo">
                 </mat-form-field>
                 <mat-form-field class="col-2">
-                    <input matInput placeholder="Landing (W)" type="number" formControlName="landingWeight">
+                    <input matInput placeholder="Landing (W)" type="number" min="0" formControlName="landingWeight">
                 </mat-form-field>
                 <mat-form-field class="col-2">
-                    <input matInput placeholder="Take Off (W)" type="number" formControlName="takeOffWeight">
+                    <input matInput placeholder="Take Off (W)" type="number" min="0" formControlName="takeOffWeight">
                 </mat-form-field>
                 <mat-form-field class="col-2">
-                    <input matInput placeholder="Baggage" type="number" formControlName="baggage">
+                    <input matInput placeholder="Baggage" type="number" min="0" formControlName="baggage">
                 </mat-form-field>
                 <mat-form-field class="col-2">
-                    <input matInput placeholder="Cargo" type="number" formControlName="cargo">
+                    <input matInput placeholder="Cargo" type="number" min="0" formControlName="cargo">
                 </mat-form-field>
             </div>
 
 
             <div class="row">                
                 <mat-form-field class="col-3">
-                    <input matInput placeholder="Fuel (Uplift)" type="text" formControlName="fuelUplift">
+                    <input matInput placeholder="Fuel (Uplift)" type="number" min="0" formControlName="fuelUplift">
                 </mat-form-field>
                 <mat-form-field class="col-3">
-                    <input matInput placeholder="Fuel (On Board)" type="text" formControlName="fuelOnboard">
+                    <input matInput placeholder="Fuel (On Board)" type="number" min="0" formControlName="fuelOnboard">
                 </mat-form-field>
                 <mat-form-field class="col-3">
                     <input matInput placeholder="Split Duty From" type="time" formControlName="splitDutyFrom">
