@@ -6,3 +6,7 @@ mat-dialog-content p{
 h1.alert__danger {
     color:rgb(255, 69, 0);
 }
+
+h1.alert__success {
+    color: rgb(132, 187, 49);
+}

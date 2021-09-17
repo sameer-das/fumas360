@@ -24,7 +24,7 @@ export class FlightLogService {
         })
       }
     }),
-    shareReplay()
+    // shareReplay()
     );
 
 }

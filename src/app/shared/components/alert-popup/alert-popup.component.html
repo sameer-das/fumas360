@@ -1,4 +1,4 @@
-<h1 mat-dialog-title [ngClass]="{'alert__danger': data.title === 'Alert'}">{{data.title}}</h1>
+<h1 mat-dialog-title [ngClass]="{'alert__danger': data.title === 'Alert', 'alert__success': data.title === 'Success'}">{{data.title}}</h1>
 
 <mat-dialog-content>    
     <p>{{data.message}}</p>    

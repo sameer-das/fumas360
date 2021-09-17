@@ -1,17 +1,16 @@
 
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 import { combineLatest, Observable } from 'rxjs';
 import { map, startWith, tap } from 'rxjs/operators';
-
-import * as moment from 'moment';
-import { FlightListService } from '../services/flight-list.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { CrewlegSearchDialogComponent } from '../popup/crewleg-search-dialog/crewleg-search-dialog.component';
 import { AlertPopupComponent } from 'src/app/shared/components/alert-popup/alert-popup.component';
 import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/confirm-popup.component';
+import { CrewlegSearchDialogComponent } from '../popup/crewleg-search-dialog/crewleg-search-dialog.component';
+import { FlightListService } from '../services/flight-list.service';
+
 
 
 
@@ -31,7 +30,7 @@ export class FlightListComponent implements OnInit {
   filteredCrewLegOptions!: Observable<any[]>;
 
   constructor(private _route: ActivatedRoute,
-    private _snackBar: MatSnackBar,
+    private _router: Router,
     private _flightListService: FlightListService,
     public dialog: MatDialog) { }
 
@@ -115,15 +114,15 @@ export class FlightListComponent implements OnInit {
       delayBy: new FormControl(),
       delayAirport: new FormControl(),
       deOrCx: new FormControl(),
-      delayTime: new FormControl(),
+      delayTime: new FormControl(0),
       delayReason: new FormControl(),
       delayCorrectiveAction: new FormControl(),
       // Oil Uplift
       engine1: new FormControl(),
-      oilengine1: new FormControl(),
+      oilengine1: new FormControl(0),
       propserial1: new FormControl(),
       engine2: new FormControl(),
-      oilengine2: new FormControl(),
+      oilengine2: new FormControl(0),
       propserial2: new FormControl(),
       record: new FormControl(),
       remarks: new FormControl(),
@@ -193,7 +192,7 @@ export class FlightListComponent implements OnInit {
       if (d.flightdata !== 0) {
         // edit mode
         console.log('edit mode, posted', posted);
-        this.isNew = true;
+        this.isNew = false;
         this.nameReadonly = true;
 
         this.patchCustomer(d.flightdata.data.flightLog.name);
@@ -202,25 +201,29 @@ export class FlightListComponent implements OnInit {
         this.loadCrewArray(d.flightdata.data.flightLogDetail);
         this.formGroup.patchValue({ qno: d.flightdata.data.flightLog.qno });
         this.formGroup.patchValue({ date: new Date(d.flightdata.data.flightLog.tdate) });
+
         this.formGroup.patchValue({ nextCheckDate: new Date(d.flightdata.data.flightLog.checkdate) });
         this.formGroup.patchValue({ preflightDone: !!d.flightdata.data.flightLog.cpreflight });
         this.formGroup.patchValue({ cmdtAcceptance: !!d.flightdata.data.flightLog.ccmdt });
         this.formGroup.patchValue({ nonCommercial: !!d.flightdata.data.flightLog.ccommercial });
         this.formGroup.patchValue({ deferDefect: !!d.flightdata.data.flightLog.defect });
-        this.formGroup.patchValue({ hasDelay: !!d.flightdata.data.flightLog.hasdelay });
 
+        this.formGroup.patchValue({ hasDelay: !!d.flightdata.data.flightLog.hasdelay });
         this.formGroup.patchValue({ delayBy: d.flightdata.data.flightLog.delayby });
         this.formGroup.patchValue({ delayAirport: d.flightdata.data.flightLog.airport });
         this.formGroup.patchValue({ deOrCx: d.flightdata.data.flightLog.decx });
         this.formGroup.patchValue({ delayReason: d.flightdata.data.flightLog.delayreason });
         this.formGroup.patchValue({ delayTime: d.flightdata.data.flightLog.delaytime });
         this.formGroup.patchValue({ delayCorrectiveAction: d.flightdata.data.flightLog.correctiveaction });
+
         this.formGroup.patchValue({ engine1: d.flightdata.data.flightLog.engine1 });
         this.formGroup.patchValue({ engine2: d.flightdata.data.flightLog.engine2 });
         this.formGroup.patchValue({ oilengine1: d.flightdata.data.flightLog.oilengine1 });
         this.formGroup.patchValue({ oilengine2: d.flightdata.data.flightLog.oilengine2 });
         this.formGroup.patchValue({ propserial1: d.flightdata.data.flightLog.propserial1 });
         this.formGroup.patchValue({ propserial2: d.flightdata.data.flightLog.propserial2 });
+
+        this.formGroup.patchValue({ remarks: d.flightdata.data.flightLog.remarks });
 
         this.totalBlkTime = d.flightdata.data.flightLog.totalflighttime;
         this.totalFlightTime = d.flightdata.data.flightLog.totalairtime;
@@ -465,63 +468,63 @@ export class FlightListComponent implements OnInit {
     const { crewLeg, pilot, officer, attendant, crew1, crew2, crew3, crew4, crew5, crew6 } = crew;
     if (typeof customer === 'string') {
       this.formGroup.get('customer')?.setErrors({ invalid: true });
-       this.openAlert('Invalid entry in Customer field!');
+       this.openAlertPopup('Invalid entry in Customer field!');
        return false;
     }
     if (typeof registration === 'string') {
       this.formGroup.get('registration')?.setErrors({ invalid: true });
       //  alert('registration is invalid');
-       this.openAlert('Invalid entry in Registration field!');
+       this.openAlertPopup('Invalid entry in Registration field!');
        return false;
     }
     if (typeof crewLeg === 'string') {
       this.formGroup.get('crewLeg')?.setErrors({ invalid: true });
-      this.openAlert('Invalid entry in Crew Leg field!');
+      this.openAlertPopup('Invalid entry in Crew Leg field!');
        return false;
     }
     if (typeof pilot === 'string') {
       this.formGroup.get('pilot')?.setErrors({ invalid: true });
-      this.openAlert('Invalid entry in Pilot field!');
+      this.openAlertPopup('Invalid entry in Pilot field!');
        return false;
     }
     if (typeof officer === 'string' && officer!='') {
       this.formGroup.get('officer')?.setErrors({ invalid: true });
-      this.openAlert('Invalid entry in Officer field!');
+      this.openAlertPopup('Invalid entry in Officer field!');
        return false;
     }
     if (typeof attendant === 'string' && attendant!='') {
       this.formGroup.get('attendant')?.setErrors({ invalid: true });
-      this.openAlert('Invalid entry in Attendant field!');
+      this.openAlertPopup('Invalid entry in Attendant field!');
        return false;
     }
     if (typeof crew1 === 'string' && crew1!='') {
       this.formGroup.get('crew1')?.setErrors({ invalid: true });
-      this.openAlert('Invalid entry in Crew 1 field!');
+      this.openAlertPopup('Invalid entry in Crew 1 field!');
        return false;
     }
     if (typeof crew2 === 'string' && crew2!='') {
       this.formGroup.get('crew2')?.setErrors({ invalid: true });
-      this.openAlert('Invalid entry in Crew 2 field!');
+      this.openAlertPopup('Invalid entry in Crew 2 field!');
        return false;
     }
     if (typeof crew3 === 'string' && crew3!='') {
       this.formGroup.get('crew3')?.setErrors({ invalid: true });
-      this.openAlert('Invalid entry in Crew 3 field!');
+      this.openAlertPopup('Invalid entry in Crew 3 field!');
        return false;
     }
     if (typeof crew4 === 'string' && crew4!='') {
       this.formGroup.get('crew4')?.setErrors({ invalid: true });
-      this.openAlert('Invalid entry in Crew 4 field!');
+      this.openAlertPopup('Invalid entry in Crew 4 field!');
        return false;
     }
     if (typeof crew5 === 'string' && crew5!='') {
       this.formGroup.get('crew5')?.setErrors({ invalid: true });
-      this.openAlert('Invalid entry in Crew 5 field!');
+      this.openAlertPopup('Invalid entry in Crew 5 field!');
        return false;
     }
     if (typeof crew6 === 'string' && crew6!='') {
       this.formGroup.get('crew6')?.setErrors({ invalid: true });
-      this.openAlert('Invalid entry in Crew 6 field!');
+      this.openAlertPopup('Invalid entry in Crew 6 field!');
        return false;
     }
     return true;
@@ -780,12 +783,12 @@ export class FlightListComponent implements OnInit {
     
     if (typeof customer === 'string') {
       this.formGroup.get('customer')?.setErrors({ invalid: true });
-      this.openAlert('Invalid entry in Customer field!');
+      this.openAlertPopup('Invalid entry in Customer field!');
       return;
     }
     if (typeof registration === 'string') {
       this.formGroup.get('registration')?.setErrors({ invalid: true });
-      this.openAlert('Invalid entry in Registration field!');
+      this.openAlertPopup('Invalid entry in Registration field!');
       return;     
     }
     const postData = this.createPayloadForSaveAndApprove();
@@ -796,10 +799,15 @@ export class FlightListComponent implements OnInit {
     this._flightListService.postFlightLogOperations(postData)
       .subscribe(d => {
         console.log(d)
-        this.openAlert(d.data)
+        if(d.code == 200 && d.status == "Success") 
+          this.openSuccessPopup(d.data)
+          .afterClosed()
+          .subscribe(_ => this._router.navigate(['dashboard/flight-log']));
+        else
+          this.openAlertPopup(d.data)
       }, err => {
         console.log(err)
-        this.openAlert(err.message)
+        this.openAlertPopup(err.message)
       });
   }
 
@@ -822,11 +830,15 @@ export class FlightListComponent implements OnInit {
         this._flightListService.postFlightLogOperations(postData)
           .subscribe(d => {
             console.log(d)
-            this.openAlert(d.data);
-            // this._snackBar.open(d.data);
+            if(d.code == 200 && d.status == "Success") 
+              this.openSuccessPopup(d.data)
+              .afterClosed()
+              .subscribe(_ => this._router.navigate(['dashboard/flight-log']));
+            else
+              this.openAlertPopup(d.data);
           }, err => {
             console.log(err)
-            this.openAlert(err.message);
+            this.openAlertPopup(err.message);
             // alert(err.message)
           });
       }
@@ -938,7 +950,8 @@ export class FlightListComponent implements OnInit {
         "oilengine2": +this.formGroup.value.oilengine2,
         "propserial2": this.formGroup.value.propserial2,
         "flightnoh": null,
-        "cnew": this.isNew ? 0 : 1
+        "cnew": this.isNew ? 0 : 1,
+        "totalCount": this.crewList.length
       },
       flightLogDetails: [...crewData]
     }
@@ -960,11 +973,19 @@ export class FlightListComponent implements OnInit {
     })
   }
 
-  openAlert(message:string) {
-    let dialogRef = this.dialog.open(AlertPopupComponent, {
+  openAlertPopup(message:string) {
+    this.dialog.open(AlertPopupComponent, {
       height: '180px',
       width: '380px',
       data: {title:'Alert', message}
+    });
+  }
+
+  openSuccessPopup(message:string):MatDialogRef<AlertPopupComponent> {
+    return this.dialog.open(AlertPopupComponent, {
+      height: '180px',
+      width: '380px',
+      data: {title:'Success', message}
     });
   }
 
@@ -995,6 +1016,7 @@ export class FlightListComponent implements OnInit {
     })
     
   }
+
 
 }
 
