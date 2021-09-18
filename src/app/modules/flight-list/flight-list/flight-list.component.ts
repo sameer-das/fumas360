@@ -463,7 +463,7 @@ export class FlightListComponent implements OnInit {
   }
 
   validateDropDown() {
-    console.log(this.formGroup.value);   
+    // console.log(this.formGroup.value);   
     const { customer, registration, crew } = this.formGroup.value;
     const { crewLeg, pilot, officer, attendant, crew1, crew2, crew3, crew4, crew5, crew6 } = crew;
     if (typeof customer === 'string') {
@@ -791,6 +791,11 @@ export class FlightListComponent implements OnInit {
       this.openAlertPopup('Invalid entry in Registration field!');
       return;     
     }
+
+    if(this.crewList.length == 0) {
+      this.openAlertPopup('Crew(s) is empty, please add crew(s) to proceed!');
+      return;  
+    }
     const postData = this.createPayloadForSaveAndApprove();
     console.dir(postData);
 
@@ -812,6 +817,11 @@ export class FlightListComponent implements OnInit {
   }
 
   onApprove() {
+    if(this.crewList.length == 0) {
+      this.openAlertPopup('Crew(s) is empty, please add crew(s) to proceed!');
+      return;  
+    }
+
     const dialogRef = this.dialog.open(ConfirmPopupComponent, 
       {
         height: '180px',
@@ -916,7 +926,7 @@ export class FlightListComponent implements OnInit {
         "totalflighttime": this.totalBlkTime,
         "totaldutytime": 0.0,
         "posted": isSave ? 0 : 1,
-        "staff": null,
+        "staff": localStorage.getItem('fuma-user'),
         "staffdate": "0001-01-01T00:00:00",
         "fid": 0,
         "bulk": null,
@@ -941,7 +951,7 @@ export class FlightListComponent implements OnInit {
         "airport": this.formGroup.value.delayAirport,
         "decx": this.formGroup.value.deOrCx,
         "delayreason": this.formGroup.value.delayReason,
-        "delaytime": +this.formGroup.value.delayTime,
+        "delaytime": this.formGroup.value.hasDelay ? +this.formGroup.value.delayTime : 0,
         "correctiveaction": this.formGroup.value.delayCorrectiveAction,
         "engine1": this.formGroup.value.engine1,
         "oilengine1": +this.formGroup.value.oilengine1,
@@ -975,16 +985,16 @@ export class FlightListComponent implements OnInit {
 
   openAlertPopup(message:string) {
     this.dialog.open(AlertPopupComponent, {
-      height: '180px',
-      width: '380px',
+      minHeight: '180px',
+      minWidth: '380px',
       data: {title:'Alert', message}
     });
   }
 
   openSuccessPopup(message:string):MatDialogRef<AlertPopupComponent> {
     return this.dialog.open(AlertPopupComponent, {
-      height: '180px',
-      width: '380px',
+      minHeight: '180px',
+      minWidth: '380px',
       data: {title:'Success', message}
     });
   }

@@ -20,7 +20,7 @@ export class LoginService {
 
     return this._http.post<LoginAPIResponse>('http://101.53.147.38/MyPortal/api/Home/ValidateUser',obj)
     .pipe(tap((response:LoginAPIResponse) => {
-      // console.log(response);
+      console.log(response);
       if(response.code == 200 && response.status.toLowerCase() === 'success') {
         response.data.modules.forEach(element => {    
           const obj:any = {}
@@ -29,10 +29,11 @@ export class LoginService {
           element.subModules.forEach((subModule:any) => {
             obj.children.push({'name': subModule.name,'children':[...subModule.actionItems]})
           });
-          this.module_data.push(obj)
-        });
+          this.module_data.push(obj);
+          localStorage.setItem('fuma-menu',JSON.stringify(this.module_data));
+          localStorage.setItem('fuma-user', userid);
+          });
       }      
-      console.log(this.module_data);
     }),
     map((response:LoginAPIResponse) => {
       if(response.code == 200 && response.status.toLowerCase() === 'success'){

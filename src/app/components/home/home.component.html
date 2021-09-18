@@ -10,7 +10,7 @@
         <div class="avtar">
             <img src="assets/avtar.png">
         </div>
-        <span>Steve Rogers</span>
+        <span>{{loggedUserName}}</span>
     </mat-toolbar-row>
     <mat-progress-bar *ngIf="isLoadng$ | async" mode="indeterminate"></mat-progress-bar>
 </mat-toolbar>

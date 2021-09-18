@@ -73,13 +73,13 @@
                                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                 <mat-datepicker #picker1></mat-datepicker>
                             </mat-form-field>
-                            <mat-slide-toggle formControlName="deferDefect">Deferred Defect</mat-slide-toggle>
+                            <mat-slide-toggle color="primary" formControlName="deferDefect">Deferred Defect</mat-slide-toggle>
                         </div>
                     </mat-tab>
 
                     <mat-tab label="Delay Details">
                         <div class="tab-content-row">
-                            <mat-slide-toggle class="col-4" formControlName="hasDelay">Has Delay</mat-slide-toggle>
+                            <mat-slide-toggle class="col-4" color="primary" formControlName="hasDelay">Has Delay</mat-slide-toggle>
                             <mat-form-field class="col-4">
                                 <mat-label>By</mat-label>
                                 <mat-select formControlName="delayBy">
@@ -102,7 +102,7 @@
                             </mat-form-field>
 
                             <mat-form-field class="col-md-8 col-sm-8">
-                                <input matInput placeholder="Delay Time" type="number" min="0" formControlName="delayTime">
+                                <input matInput placeholder="Delay Time" type="number" [readonly]="!formGroup.get('hasDelay')?.value" min="0" formControlName="delayTime">
                             </mat-form-field>
                         </div>
                         <div class="tab-content-row">
@@ -364,15 +364,8 @@
             <div class="row">
                 
                 <div *ngIf="isButtonsVisible"  class="col-md-3 col-sm-12 col-lg-3 offset-md-9 offset-lg-9 crew-buttons">
-                    <!-- <button mat-mini-fab color="primary" >
-                        <mat-icon>add</mat-icon>
-                    </button>
-                    <button mat-mini-fab color="accent" >
-                        <mat-icon>delete</mat-icon>
-                    </button> -->
-                    <!-- <button (click)="openDialog()"> click</button> -->
-                    <button mat-raised-button color="primary" (click)="addToCrewArray()">Add</button>
-                <button mat-raised-button color="accent" (click)="deleteFromCrewArray()">Delete</button>
+                    <button mat-raised-button type="button" color="primary" (click)="addToCrewArray()">Add</button>
+                <button mat-raised-button type="button" color="accent" (click)="deleteFromCrewArray()">Delete</button>
                 </div>
             </div>
 
@@ -462,7 +455,7 @@
 
             <div *ngIf="isButtonsVisible" class="col-md-6 col-sm-12 page-buttons">
                 <button mat-raised-button type="button" color="primary" (click)="onSave()">Save</button>
-                <button mat-raised-button color="primary" (click)="onApprove()">Approve</button>
+                <button mat-raised-button type="button" color="primary" (click)="onApprove()">Approve</button>
                 <!-- <button mat-raised-button>Generate Invoice</button> -->
             </div>
         </div>

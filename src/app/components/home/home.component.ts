@@ -13,12 +13,18 @@ import { LoginService } from 'src/app/shared/services/login.service';
 export class HomeComponent implements OnInit {
   constructor(private _loginService: LoginService, private _router:Router) { }
   
-  modules = this._loginService.module_data;
+  modules!: any[];
+  loggedUserName: string | null = 'Anonymous';
   isLoadng$!: Observable<boolean>;
   private _showLoaderEvents$!:Observable<boolean>;
   private _hideLoaderEvents$!:Observable<boolean>;
-
+  
   ngOnInit(): void {
+    this.modules = JSON.parse(localStorage.getItem('fuma-menu')!);
+    console.log(this.modules)
+    this.loggedUserName = localStorage.getItem('fuma-user');
+
+
     this._showLoaderEvents$ = this._router.events.pipe(
       filter(e => e instanceof ResolveStart),
       mapTo(true)

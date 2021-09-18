@@ -35,6 +35,19 @@ body { margin: 0; font-family: 'Poppins', sans-serif; padding: 0;}
 }
 
 
+.mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-bar {
+    background-color: rgba(95,117,125,0.57);
+}
+
+.mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-thumb {
+    background-color: #5f757d;
+}
+
+
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #5f757d;
+}
+
 .mat-toolbar{
     z-index: 99 !important;
 }
