@@ -468,79 +468,79 @@ export class FlightListComponent implements OnInit {
     const { crewLeg, pilot, officer, attendant, crew1, crew2, crew3, crew4, crew5, crew6 } = crew;
     if (typeof customer === 'string') {
       this.formGroup.get('customer')?.setErrors({ invalid: true });
-       this.openAlertPopup('Invalid entry in Customer field!');
-       return false;
+      this.openAlertPopup('Invalid entry in Customer field!');
+      return false;
     }
     if (typeof registration === 'string') {
       this.formGroup.get('registration')?.setErrors({ invalid: true });
       //  alert('registration is invalid');
-       this.openAlertPopup('Invalid entry in Registration field!');
-       return false;
+      this.openAlertPopup('Invalid entry in Registration field!');
+      return false;
     }
     if (typeof crewLeg === 'string') {
       this.formGroup.get('crewLeg')?.setErrors({ invalid: true });
       this.openAlertPopup('Invalid entry in Crew Leg field!');
-       return false;
+      return false;
     }
     if (typeof pilot === 'string') {
       this.formGroup.get('pilot')?.setErrors({ invalid: true });
       this.openAlertPopup('Invalid entry in Pilot field!');
-       return false;
+      return false;
     }
-    if (typeof officer === 'string' && officer!='') {
+    if (typeof officer === 'string' && officer != '') {
       this.formGroup.get('officer')?.setErrors({ invalid: true });
       this.openAlertPopup('Invalid entry in Officer field!');
-       return false;
+      return false;
     }
-    if (typeof attendant === 'string' && attendant!='') {
+    if (typeof attendant === 'string' && attendant != '') {
       this.formGroup.get('attendant')?.setErrors({ invalid: true });
       this.openAlertPopup('Invalid entry in Attendant field!');
-       return false;
+      return false;
     }
-    if (typeof crew1 === 'string' && crew1!='') {
+    if (typeof crew1 === 'string' && crew1 != '') {
       this.formGroup.get('crew1')?.setErrors({ invalid: true });
       this.openAlertPopup('Invalid entry in Crew 1 field!');
-       return false;
+      return false;
     }
-    if (typeof crew2 === 'string' && crew2!='') {
+    if (typeof crew2 === 'string' && crew2 != '') {
       this.formGroup.get('crew2')?.setErrors({ invalid: true });
       this.openAlertPopup('Invalid entry in Crew 2 field!');
-       return false;
+      return false;
     }
-    if (typeof crew3 === 'string' && crew3!='') {
+    if (typeof crew3 === 'string' && crew3 != '') {
       this.formGroup.get('crew3')?.setErrors({ invalid: true });
       this.openAlertPopup('Invalid entry in Crew 3 field!');
-       return false;
+      return false;
     }
-    if (typeof crew4 === 'string' && crew4!='') {
+    if (typeof crew4 === 'string' && crew4 != '') {
       this.formGroup.get('crew4')?.setErrors({ invalid: true });
       this.openAlertPopup('Invalid entry in Crew 4 field!');
-       return false;
+      return false;
     }
-    if (typeof crew5 === 'string' && crew5!='') {
+    if (typeof crew5 === 'string' && crew5 != '') {
       this.formGroup.get('crew5')?.setErrors({ invalid: true });
       this.openAlertPopup('Invalid entry in Crew 5 field!');
-       return false;
+      return false;
     }
-    if (typeof crew6 === 'string' && crew6!='') {
+    if (typeof crew6 === 'string' && crew6 != '') {
       this.formGroup.get('crew6')?.setErrors({ invalid: true });
       this.openAlertPopup('Invalid entry in Crew 6 field!');
-       return false;
+      return false;
     }
     return true;
   }
   addToCrewArray() {
     this.formGroup.markAsTouched();
-    console.log(this.formGroup.get('crew')?.value);      
-    if (this.validateDropDown() && this.formGroup.valid ) {
+    console.log(this.formGroup.get('crew')?.value);
+    if (this.validateDropDown() && this.formGroup.valid) {
       if (this.selectedCrew && this.selectedCrew.id) {
 
         const newObj = {
           ...this.selectedCrew, ...this.formGroup.get('crew')?.value,
-          cksOff: moment(this.formGroup.get('crew')?.value.cksOff,'HH:mm').toDate(),
-          takeOff: moment(this.formGroup.get('crew')?.value.takeOff,'HH:mm').toDate(),
-          landing: moment(this.formGroup.get('crew')?.value.landing,'HH:mm').toDate(),
-          cksOn: moment(this.formGroup.get('crew')?.value.cksOn,'HH:mm').toDate(),
+          cksOff: moment(this.formGroup.get('crew')?.value.cksOff, 'HH:mm').toDate(),
+          takeOff: moment(this.formGroup.get('crew')?.value.takeOff, 'HH:mm').toDate(),
+          landing: moment(this.formGroup.get('crew')?.value.landing, 'HH:mm').toDate(),
+          cksOn: moment(this.formGroup.get('crew')?.value.cksOn, 'HH:mm').toDate(),
         }
         // console.log(this.selectedCrew);
         // console.log(this.formGroup.get('crew')?.value);
@@ -592,11 +592,11 @@ export class FlightListComponent implements OnInit {
     this.formGroup.get('crew')?.patchValue({
       ...crew,
       cksOff: moment(crew.cksOff).format('HH:mm'),
-        takeOff: moment(crew.takeOff).format('HH:mm'),
-        landing: moment(crew.landing).format('HH:mm'),
-        cksOn: moment(crew.cksOn).format('HH:mm'),
-        splitDutyFrom: crew.splitDutyFrom && moment(crew.splitDutyFrom).format('HH:mm'),
-        splitDutyTo: crew.splitDutyTo && moment(crew.splitDutyTo).format('HH:mm'),
+      takeOff: moment(crew.takeOff).format('HH:mm'),
+      landing: moment(crew.landing).format('HH:mm'),
+      cksOn: moment(crew.cksOn).format('HH:mm'),
+      splitDutyFrom: crew.splitDutyFrom && moment(crew.splitDutyFrom).format('HH:mm'),
+      splitDutyTo: crew.splitDutyTo && moment(crew.splitDutyTo).format('HH:mm'),
     });
   }
 
@@ -668,10 +668,10 @@ export class FlightListComponent implements OnInit {
         crewLeg: this._getCrewLeg(curr.route),
         route: curr.route,
 
-        cksOff: moment(curr.out_time,'HH:mm').toDate(),
-        takeOff: moment(curr.up_time,'HH:mm').toDate(),
-        landing: moment(curr.down_time,'HH:mm').toDate(),
-        cksOn: moment(curr.in_time,'HH:mm').toDate(),
+        cksOff: moment(curr.out_time, 'HH:mm').toDate(),
+        takeOff: moment(curr.up_time, 'HH:mm').toDate(),
+        landing: moment(curr.down_time, 'HH:mm').toDate(),
+        cksOn: moment(curr.in_time, 'HH:mm').toDate(),
 
         fltTime: curr.air_time,
         blkTime: curr.flt_time,
@@ -682,8 +682,8 @@ export class FlightListComponent implements OnInit {
         cargo: curr.bag_cargo,
         takeOffWeight: curr.takeoffw,
 
-        splitDutyFrom: curr.offdutyfrom == "  :" ? null : moment(curr.offdutyfrom,'HH:mm'),
-        splitDutyTo: curr.offdutyto == "  :" ? null :  moment(curr.offdutyto,'HH:mm'),
+        splitDutyFrom: (curr.offdutyfrom == "  :" || curr.offdutyfrom == "") ? null : moment(curr.offdutyfrom, 'HH:mm'),
+        splitDutyTo: (curr.offdutyto == "  :" || curr.offdutyto == "") ? null : moment(curr.offdutyto, 'HH:mm'),
 
         crewFrom: curr.lfrom,
         crewTo: curr.lto,
@@ -804,7 +804,7 @@ export class FlightListComponent implements OnInit {
 
   onSave() {
     const { customer, registration } = this.formGroup.value;
-    
+
     if (typeof customer === 'string') {
       this.formGroup.get('customer')?.setErrors({ invalid: true });
       this.openAlertPopup('Invalid entry in Customer field!');
@@ -813,12 +813,12 @@ export class FlightListComponent implements OnInit {
     if (typeof registration === 'string') {
       this.formGroup.get('registration')?.setErrors({ invalid: true });
       this.openAlertPopup('Invalid entry in Registration field!');
-      return;     
+      return;
     }
 
-    if(this.crewList.length == 0) {
+    if (this.crewList.length == 0) {
       this.openAlertPopup('Crew(s) is empty, please add crew(s) to proceed!');
-      return;  
+      return;
     }
     const postData = this.createPayloadForSaveAndApprove();
     console.dir(postData);
@@ -828,10 +828,10 @@ export class FlightListComponent implements OnInit {
     this._flightListService.postFlightLogOperations(postData)
       .subscribe(d => {
         console.log(d)
-        if(d.code == 200 && d.status == "Success") 
+        if (d.code == 200 && d.status == "Success")
           this.openSuccessPopup(d.data)
-          .afterClosed()
-          .subscribe(_ => this._router.navigate(['dashboard/flight-log']));
+            .afterClosed()
+            .subscribe(_ => this._router.navigate(['dashboard/flight-log']));
         else
           this.openAlertPopup(d.data)
       }, err => {
@@ -841,33 +841,33 @@ export class FlightListComponent implements OnInit {
   }
 
   onApprove() {
-    if(this.crewList.length == 0) {
+    if (this.crewList.length == 0) {
       this.openAlertPopup('Crew(s) is empty, please add crew(s) to proceed!');
-      return;  
+      return;
     }
 
-    const dialogRef = this.dialog.open(ConfirmPopupComponent, 
+    const dialogRef = this.dialog.open(ConfirmPopupComponent,
       {
         height: '180px',
         width: '380px',
-        data: {message: 'Are you sure to approve this quotation?'}
+        data: { message: 'Are you sure to approve this quotation?' }
       }
     )
 
-    dialogRef.afterClosed().subscribe((confirm:boolean) => {
-      if(confirm) {
+    dialogRef.afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
         const postData = this.createPayloadForSaveAndApprove(false);
         console.dir(postData);
-    
+
         console.log(JSON.stringify(postData))
-    
+
         this._flightListService.postFlightLogOperations(postData)
           .subscribe(d => {
             console.log(d)
-            if(d.code == 200 && d.status == "Success") 
+            if (d.code == 200 && d.status == "Success")
               this.openSuccessPopup(d.data)
-              .afterClosed()
-              .subscribe(_ => this._router.navigate(['dashboard/flight-log']));
+                .afterClosed()
+                .subscribe(_ => this._router.navigate(['dashboard/flight-log']));
             else
               this.openAlertPopup(d.data);
           }, err => {
@@ -877,7 +877,7 @@ export class FlightListComponent implements OnInit {
           });
       }
     })
-    
+
   }
 
 
@@ -899,8 +899,8 @@ export class FlightListComponent implements OnInit {
         "bag_cargo": +curr.cargo,
         "takeoffw": +curr.takeOffWeight,
         "fdid": curr.fdid,
-        "offdutyfrom": moment(curr.splitDutyFrom).format('HH:mm'),
-        "offdutyto": moment(curr.splitDutyTo).format('HH:mm'),
+        "offdutyfrom": (curr.splitDutyFrom == "" || curr.splitDutyFrom == null) ? "" : moment(curr.splitDutyFrom).format('HH:mm'),
+        "offdutyto": (curr.splitDutyTo == "" || curr.splitDutyTo == null) ? "" : moment(curr.splitDutyTo).format('HH:mm'),
         "lfrom": curr.crewFrom,
         "lto": curr.crewTo,
         "rctno": curr.rcptOrAdrNo,
@@ -1007,36 +1007,36 @@ export class FlightListComponent implements OnInit {
     })
   }
 
-  openAlertPopup(message:string) {
+  openAlertPopup(message: string) {
     this.dialog.open(AlertPopupComponent, {
       minHeight: '180px',
       minWidth: '380px',
-      data: {title:'Alert', message}
+      data: { title: 'Alert', message }
     });
   }
 
-  openSuccessPopup(message:string):MatDialogRef<AlertPopupComponent> {
+  openSuccessPopup(message: string): MatDialogRef<AlertPopupComponent> {
     return this.dialog.open(AlertPopupComponent, {
       minHeight: '180px',
       minWidth: '380px',
-      data: {title:'Success', message}
+      data: { title: 'Success', message }
     });
   }
 
 
-  _patchOilUplift(){
+  _patchOilUplift() {
     const flightRegistration$ = this.formGroup.controls['registration'].valueChanges;
 
-    combineLatest([flightRegistration$, this.oilUplifts$]).subscribe(([f,o]) => {
-      if(typeof f !== 'string'){
-        const oiluplift = o.filter((curr:any) => f.ainfo === curr.loc);
+    combineLatest([flightRegistration$, this.oilUplifts$]).subscribe(([f, o]) => {
+      if (typeof f !== 'string') {
+        const oiluplift = o.filter((curr: any) => f.ainfo === curr.loc);
 
-        if(oiluplift.length > 0) {
+        if (oiluplift.length > 0) {
           this.formGroup.patchValue({
-            engine1: oiluplift.find((c:any) => c.csale === 'Engine' && c.position == 1)?.assserialno,
-            propserial1: oiluplift.find((c:any) => c.csale === 'Propeller' && c.position == 1)?.assserialno,
-            engine2: oiluplift.find((c:any) => c.csale === 'Engine' && c.position == 2)?.assserialno,
-            propserial2: oiluplift.find((c:any) => c.csale === 'Propeller' && c.position == 2)?.assserialno,
+            engine1: oiluplift.find((c: any) => c.csale === 'Engine' && c.position == 1)?.assserialno,
+            propserial1: oiluplift.find((c: any) => c.csale === 'Propeller' && c.position == 1)?.assserialno,
+            engine2: oiluplift.find((c: any) => c.csale === 'Engine' && c.position == 2)?.assserialno,
+            propserial2: oiluplift.find((c: any) => c.csale === 'Propeller' && c.position == 2)?.assserialno,
           })
         } else {
           this.formGroup.patchValue({
@@ -1048,7 +1048,7 @@ export class FlightListComponent implements OnInit {
         }
       }
     })
-    
+
   }
 
 
