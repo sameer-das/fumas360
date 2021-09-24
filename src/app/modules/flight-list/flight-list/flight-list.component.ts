@@ -532,15 +532,18 @@ export class FlightListComponent implements OnInit {
   addToCrewArray() {
     this.formGroup.markAsTouched();
     console.log(this.formGroup.get('crew')?.value);
+    const crewValueFromForm = this.formGroup.get('crew')?.value;
     if (this.validateDropDown() && this.formGroup.valid) {
       if (this.selectedCrew && this.selectedCrew.id) {
 
         const newObj = {
           ...this.selectedCrew, ...this.formGroup.get('crew')?.value,
-          cksOff: moment(this.formGroup.get('crew')?.value.cksOff, 'HH:mm').toDate(),
-          takeOff: moment(this.formGroup.get('crew')?.value.takeOff, 'HH:mm').toDate(),
-          landing: moment(this.formGroup.get('crew')?.value.landing, 'HH:mm').toDate(),
-          cksOn: moment(this.formGroup.get('crew')?.value.cksOn, 'HH:mm').toDate(),
+          cksOff: moment(crewValueFromForm.cksOff, 'HH:mm').toDate(),
+          takeOff: moment(crewValueFromForm.takeOff, 'HH:mm').toDate(),
+          landing: moment(crewValueFromForm.landing, 'HH:mm').toDate(),
+          cksOn: moment(crewValueFromForm.cksOn, 'HH:mm').toDate(),
+          splitDutyFrom: crewValueFromForm.splitDutyFrom && moment(crewValueFromForm.splitDutyFrom, 'HH:mm').toDate(),
+          splitDutyTo: crewValueFromForm.splitDutyTo && moment(crewValueFromForm.splitDutyTo, 'HH:mm').toDate(),
         }
         // console.log(this.selectedCrew);
         // console.log(this.formGroup.get('crew')?.value);
@@ -549,8 +552,8 @@ export class FlightListComponent implements OnInit {
 
 
         this.crewList.splice(this.selectedCrew.id - 1, 1, newObj);
-        this.totalBlkTime += (+this.formGroup.get('crew')?.value.blkTime - +this.selectedCrew.blkTime);
-        this.totalFlightTime += (+this.formGroup.get('crew')?.value.fltTime - +this.selectedCrew.fltTime);
+        this.totalBlkTime += (+crewValueFromForm.blkTime - +this.selectedCrew.blkTime);
+        this.totalFlightTime += (+crewValueFromForm.fltTime - +this.selectedCrew.fltTime);
         this.patchCrewToNull();
         this.selectedCrew = null;
       } else {
@@ -558,10 +561,16 @@ export class FlightListComponent implements OnInit {
           ...this.formGroup.get('crew')?.value,
           id: this.crewList.length + 1,
           fdid: 0,
-          route: this.formGroup.get('crew')?.value.crewLeg.nmroute
+          route: this.formGroup.get('crew')?.value.crewLeg.nmroute,
+          cksOff: moment(crewValueFromForm.cksOff, 'HH:mm').toDate(),
+          takeOff: moment(crewValueFromForm.takeOff, 'HH:mm').toDate(),
+          landing: moment(crewValueFromForm.landing, 'HH:mm').toDate(),
+          cksOn: moment(crewValueFromForm.cksOn, 'HH:mm').toDate(),
+          splitDutyFrom: crewValueFromForm.splitDutyFrom && moment(crewValueFromForm.splitDutyFrom, 'HH:mm').toDate(),
+          splitDutyTo: crewValueFromForm.splitDutyTo && moment(crewValueFromForm.splitDutyTo, 'HH:mm').toDate(),
         });
-        this.totalBlkTime += +this.formGroup.get('crew')?.value.blkTime;
-        this.totalFlightTime += +this.formGroup.get('crew')?.value.fltTime;
+        this.totalBlkTime += +crewValueFromForm.blkTime;
+        this.totalFlightTime += +crewValueFromForm.fltTime;
         this.patchCrewToNull();
         this.selectedCrew = null;
       }
@@ -587,7 +596,7 @@ export class FlightListComponent implements OnInit {
 
   selectedCrew!: any;
   loadRowtoCrewForm(crew: any) {
-    console.log(crew);
+    // console.log(crew);
     this.selectedCrew = crew;
     this.formGroup.get('crew')?.patchValue({
       ...crew,
@@ -756,6 +765,9 @@ export class FlightListComponent implements OnInit {
       if (!l || !t) {
         crewFormGroup.patchValue({ 'fltTime': null })
       } else {
+        l = typeof l === `object` ? `${l.getHours()}:${l.getMinutes()}` : l;
+        t = typeof t === `object` ? `${t.getHours()}:${t.getMinutes()}` : t;
+
         const takeOff = moment.duration(t);
         const landing = moment.duration(l);
         const diff = landing.subtract(takeOff)
@@ -784,6 +796,9 @@ export class FlightListComponent implements OnInit {
       if (!ckOn || !ckOff) {
         crewFormGroup.patchValue({ 'blkTime': null })
       } else {
+        ckOn = typeof ckOn === `object` ? `${ckOn.getHours()}:${ckOn.getMinutes()}` : ckOn;
+        ckOff = typeof ckOff === `object` ? `${ckOff.getHours()}:${ckOff.getMinutes()}` : ckOff;
+
         const cksOff = moment.duration(ckOff);
         const cksOn = moment.duration(ckOn);
         const diff = cksOn.subtract(cksOff)
