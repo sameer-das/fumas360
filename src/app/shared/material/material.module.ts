@@ -44,7 +44,7 @@ const material = [
   MatProgressBarModule,
   MatAutocompleteModule,
   MatSnackBarModule,
-  MatDialogModule
+  MatDialogModule,
 ];
 
 

@@ -67,3 +67,32 @@ input[type=number] {
 }
 
 /* ===============================================================  */
+
+
+.p-inputtext {
+    background: transparent;
+    border: none ;
+    border-bottom: 1px solid rgba(0,0,0,0.42) ;
+    border-radius: 0 ;
+    padding: 0 ;
+    padding-top: 18px;
+    color: #000;
+    font-size: 15px;
+
+}
+
+.p-inputtext:enabled:focus {
+    box-shadow: none;
+}
+
+.p-inputtext:enabled:hover {
+    border-color: rgba(0,0,0,0.42);
+}
+
+p-calendar.ng-invalid.ng-touched input.p-inputtext {
+    border-bottom: 1px solid red !important;
+}
+
+p-calendar.ng-invalid.ng-touched + label.my-label {
+    color: red;
+}

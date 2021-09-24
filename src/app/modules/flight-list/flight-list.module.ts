@@ -7,6 +7,10 @@ import { FlightListService } from './services/flight-list.service';
 import { CrewlegSearchDialogComponent } from './popup/crewleg-search-dialog/crewleg-search-dialog.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
+import {CalendarModule} from 'primeng/calendar';
+import {InputTextModule} from 'primeng/inputtext';
+
+
 const routes:Routes = [
   {path:'',
   resolve: {flightdata: FlightListResolverService, dropdowndata : DropdownDataResolver},  
@@ -23,6 +27,9 @@ const routes:Routes = [
     CommonModule,
     SharedModule,
     RouterModule.forChild(routes),
+    InputTextModule,
+    CalendarModule
+
   ],
   providers: [FlightListResolverService,DropdownDataResolver, FlightListService]
 })

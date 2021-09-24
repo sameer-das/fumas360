@@ -534,9 +534,20 @@ export class FlightListComponent implements OnInit {
     console.log(this.formGroup.get('crew')?.value);      
     if (this.validateDropDown() && this.formGroup.valid ) {
       if (this.selectedCrew && this.selectedCrew.id) {
+
         const newObj = {
-          ...this.selectedCrew, ...this.formGroup.get('crew')?.value
+          ...this.selectedCrew, ...this.formGroup.get('crew')?.value,
+          cksOff: moment(this.formGroup.get('crew')?.value.cksOff,'HH:mm').toDate(),
+          takeOff: moment(this.formGroup.get('crew')?.value.takeOff,'HH:mm').toDate(),
+          landing: moment(this.formGroup.get('crew')?.value.landing,'HH:mm').toDate(),
+          cksOn: moment(this.formGroup.get('crew')?.value.cksOn,'HH:mm').toDate(),
         }
+        // console.log(this.selectedCrew);
+        // console.log(this.formGroup.get('crew')?.value);
+
+        console.log(newObj);
+
+
         this.crewList.splice(this.selectedCrew.id - 1, 1, newObj);
         this.totalBlkTime += (+this.formGroup.get('crew')?.value.blkTime - +this.selectedCrew.blkTime);
         this.totalFlightTime += (+this.formGroup.get('crew')?.value.fltTime - +this.selectedCrew.fltTime);
@@ -572,11 +583,20 @@ export class FlightListComponent implements OnInit {
     }
 
   }
+
+
   selectedCrew!: any;
   loadRowtoCrewForm(crew: any) {
+    console.log(crew);
     this.selectedCrew = crew;
     this.formGroup.get('crew')?.patchValue({
-      ...crew
+      ...crew,
+      cksOff: moment(crew.cksOff).format('HH:mm'),
+        takeOff: moment(crew.takeOff).format('HH:mm'),
+        landing: moment(crew.landing).format('HH:mm'),
+        cksOn: moment(crew.cksOn).format('HH:mm'),
+        splitDutyFrom: crew.splitDutyFrom && moment(crew.splitDutyFrom).format('HH:mm'),
+        splitDutyTo: crew.splitDutyTo && moment(crew.splitDutyTo).format('HH:mm'),
     });
   }
 
@@ -647,10 +667,12 @@ export class FlightListComponent implements OnInit {
       this.crewList.push({
         crewLeg: this._getCrewLeg(curr.route),
         route: curr.route,
-        cksOff: curr.out_time,
-        takeOff: curr.up_time,
-        landing: curr.down_time,
-        cksOn: curr.in_time,
+
+        cksOff: moment(curr.out_time,'HH:mm').toDate(),
+        takeOff: moment(curr.up_time,'HH:mm').toDate(),
+        landing: moment(curr.down_time,'HH:mm').toDate(),
+        cksOn: moment(curr.in_time,'HH:mm').toDate(),
+
         fltTime: curr.air_time,
         blkTime: curr.flt_time,
         paxNo: curr.passno,
@@ -659,8 +681,10 @@ export class FlightListComponent implements OnInit {
         fuelOnboard: curr.fuelonboard,
         cargo: curr.bag_cargo,
         takeOffWeight: curr.takeoffw,
-        splitDutyFrom: curr.offdutyfrom,
-        splitDutyTo: curr.offdutyto,
+
+        splitDutyFrom: curr.offdutyfrom == "  :" ? null : moment(curr.offdutyfrom,'HH:mm'),
+        splitDutyTo: curr.offdutyto == "  :" ? null :  moment(curr.offdutyto,'HH:mm'),
+
         crewFrom: curr.lfrom,
         crewTo: curr.lto,
         id: ind + 1,
@@ -862,10 +886,10 @@ export class FlightListComponent implements OnInit {
       return {
         "orderno": this.formGroup.value.number,
         "route": curr.crewLeg.nmroute,
-        "out_time": curr.cksOff,
-        "up_time": curr.takeOff,
-        "down_time": curr.landing,
-        "in_time": curr.cksOn,
+        "out_time": moment(curr.cksOff).format('HH:mm'),
+        "up_time": moment(curr.takeOff).format('HH:mm'),
+        "down_time": moment(curr.landing).format('HH:mm'),
+        "in_time": moment(curr.cksOn).format('HH:mm'),
         "air_time": +curr.fltTime,
         "flt_time": +curr.blkTime,
         "passno": +curr.paxNo,
@@ -875,8 +899,8 @@ export class FlightListComponent implements OnInit {
         "bag_cargo": +curr.cargo,
         "takeoffw": +curr.takeOffWeight,
         "fdid": curr.fdid,
-        "offdutyfrom": curr.splitDutyFrom,
-        "offdutyto": curr.splitDutyTo,
+        "offdutyfrom": moment(curr.splitDutyFrom).format('HH:mm'),
+        "offdutyto": moment(curr.splitDutyTo).format('HH:mm'),
         "lfrom": curr.crewFrom,
         "lto": curr.crewTo,
         "rctno": curr.rcptOrAdrNo,

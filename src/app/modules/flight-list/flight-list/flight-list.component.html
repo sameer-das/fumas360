@@ -183,14 +183,46 @@
                     <input matInput placeholder="To" readonly type="text" formControlName="crewTo">
                 </mat-form-field>
             </div>
-            <div class="row">
+
+            <div class="row">        
+            
+                <div class="col-md-2 col-sm-2">
+                    <p-calendar formControlName="cksOff" [timeOnly]="true" inputId="cksOff"></p-calendar>
+                    <label class="my-label" for="cksOff">CKS OFF</label>
+                    <!-- <input matInput placeholder="CKS OFF" type="time" formControlName="cksOff"> -->
+                </div>
+                <div class="col-md-2 col-sm-2">
+                    <p-calendar formControlName="takeOff" [timeOnly]="true" inputId="takeOff"></p-calendar>
+                    <label class="my-label" for="takeOff">Take OFF</label>
+                    <!-- <input matInput placeholder="Take OFF" type="time" formControlName="takeOff"> -->
+                </div>
+
+                <div class="col-md-2 col-sm-2">
+                    <p-calendar formControlName="landing" [timeOnly]="true" inputId="landing"></p-calendar>
+                    <label class="my-label" for="landing">Landing</label>
+                    <!-- <input matInput placeholder="Landing" type="time" formControlName="landing"> -->
+                </div>
+                <div class="col-md-2 col-sm-2">
+                    <p-calendar formControlName="cksOn" [timeOnly]="true" inputId="cksOn"></p-calendar>
+                    <label class="my-label" for="cksOn">CKS ON</label>
+                    <!-- <input matInput placeholder="CKS ON" type="time" formControlName="cksOn"> -->
+                </div>
+                <mat-form-field class="col-md-2 col-sm-2">
+                    <input matInput placeholder="FLT Time" type="text" readonly formControlName="fltTime">
+                </mat-form-field>
+                <mat-form-field class="col-md-2 col-sm-2">
+                    <input matInput placeholder="BLK Time" type="text" readonly formControlName="blkTime">
+                </mat-form-field>            
+            </div>
+
+
+            <!-- <div class="row">  
                 <mat-form-field class="col-md-2 col-sm-2">
                     <input matInput placeholder="CKS OFF" type="time" formControlName="cksOff">
                 </mat-form-field>
                 <mat-form-field class="col-md-2 col-sm-2">
                     <input matInput placeholder="Take OFF" type="time" formControlName="takeOff">
                 </mat-form-field>
-
                 <mat-form-field class="col-md-2 col-sm-2">
                     <input matInput placeholder="Landing" type="time" formControlName="landing">
                 </mat-form-field>
@@ -203,7 +235,7 @@
                 <mat-form-field class="col-md-2 col-sm-2">
                     <input matInput placeholder="BLK Time" type="text" readonly formControlName="blkTime">
                 </mat-form-field>            
-            </div>
+            </div> -->
 
             <div class="row">
                 <mat-form-field class="col-4">
@@ -225,18 +257,27 @@
 
 
             <div class="row">                
-                <mat-form-field class="col-3">
+                <mat-form-field class="col-md-3 col-sm-3 col-lg-3">
                     <input matInput placeholder="Fuel (Uplift)" type="number" min="0" formControlName="fuelUplift">
                 </mat-form-field>
-                <mat-form-field class="col-3">
+                <mat-form-field class="col-md-3 col-sm-3 col-lg-3">
                     <input matInput placeholder="Fuel (On Board)" type="number" min="0" formControlName="fuelOnboard">
                 </mat-form-field>
-                <mat-form-field class="col-3">
+
+                <div class="col-md-3 col-sm-3 col-lg-3">
+                    <p-calendar formControlName="splitDutyFrom" [timeOnly]="true" inputId="splitDutyFrom"></p-calendar>
+                    <label class="my-label2" for="splitDutyFrom">Split Duty From</label>
+                </div>
+                <div class="col-md-3 col-sm-3 col-lg-3">
+                    <p-calendar formControlName="splitDutyTo" [timeOnly]="true" inputId="splitDutyTo"></p-calendar>
+                    <label class="my-label2" for="splitDutyTo">Split Duty To</label>
+                </div>
+                <!-- <mat-form-field class="col-3">
                     <input matInput placeholder="Split Duty From" type="time" formControlName="splitDutyFrom">
                 </mat-form-field>
                 <mat-form-field class="col-3">
                     <input matInput placeholder="Split Duty To" type="time" formControlName="splitDutyTo">
-                </mat-form-field>
+                </mat-form-field> -->
             </div>
 
 
@@ -364,7 +405,7 @@
             <div class="row">
                 
                 <div *ngIf="isButtonsVisible"  class="col-md-3 col-sm-12 col-lg-3 offset-md-9 offset-lg-9 crew-buttons">
-                    <button mat-raised-button type="button" color="primary" (click)="addToCrewArray()">Add</button>
+                    <button mat-raised-button color="primary" (click)="addToCrewArray()">Add</button>
                 <button mat-raised-button type="button" color="accent" (click)="deleteFromCrewArray()">Delete</button>
                 </div>
             </div>
@@ -402,10 +443,10 @@
                 <tbody class="">
                     <tr *ngFor="let c of crewList; let i = index" (click)="loadRowtoCrewForm(c)" [ngClass]="{'row-selected': c.route == selectedCrew?.route}">
                         <th scope="row">{{c.route}}</th>
-                        <td>{{c.cksOff}}</td>
-                        <td>{{c.takeOff}}</td>
-                        <td>{{c.landing}}</td>
-                        <td>{{c.cksOn}}</td>
+                        <td>{{c.cksOff | date:'HH:mm'}}</td>
+                        <td>{{c.takeOff | date:'HH:mm'}}</td>
+                        <td>{{c.landing | date:'HH:mm'}}</td>
+                        <td>{{c.cksOn | date:'HH:mm'}}</td>
                         <td>{{c.fltTime}}</td>
                         <td>{{c.blkTime}}</td>
                         <td>{{c.paxNo}}</td>
@@ -414,7 +455,7 @@
                         <td>{{c.fuelOnboard}}</td>
                         <td>{{c.cargo}}</td>
                         <td>{{c.takeOffWeight}}</td>
-                        <td>{{c.splitDutyFrom}}</td>
+                        <td>{{c.splitDutyFrom | date:'HH:mm'}}</td>
                         <td>{{c.crewFrom}}</td>
                         <td>{{c.crewTo}}</td>
                         <td>{{c.fdid }}</td>
