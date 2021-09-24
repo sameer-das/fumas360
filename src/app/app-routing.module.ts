@@ -29,6 +29,13 @@ const routes: Routes = [
             _ => _.FlightLogModule
           ),
       },
+      {
+        path: 'airport',
+        loadChildren: () =>
+          import('./modules/airport/airport.module').then(
+            _ => _.AirportModule
+          ),
+      }
     ],
   },
 
