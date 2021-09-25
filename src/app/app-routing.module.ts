@@ -35,14 +35,7 @@ const routes: Routes = [
           import('./modules/airport/airport.module').then(
             _ => _.AirportModule
           ),
-      },
-      {
-        path: 'add-airport',
-        loadChildren: () =>
-          import('./modules/airport/airport.module').then(
-            _ => _.AirportModule
-          ),
-      },
+      },      
     ],
   },
 
