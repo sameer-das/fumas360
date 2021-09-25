@@ -22,6 +22,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatRadioModule} from '@angular/material/radio';
 
 const material = [
   CommonModule,
@@ -45,6 +46,7 @@ const material = [
   MatAutocompleteModule,
   MatSnackBarModule,
   MatDialogModule,
+  MatRadioModule,
 ];
 
 

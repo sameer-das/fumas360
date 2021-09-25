@@ -1,0 +1,16 @@
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.page-buttons {
+    display: flex;
+    justify-content: center;
+}
+.bottom-row {
+    padding-bottom: 4rem;
+}
+.airport-list-button {
+    text-decoration: none;
+}
+  

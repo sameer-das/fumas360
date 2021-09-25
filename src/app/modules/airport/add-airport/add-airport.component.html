@@ -1,107 +1,124 @@
 <div class="page-wrapper">
     <h2 class="page-heading">Add/Update Airport</h2>
-    <a class="flight-log-button" routerLink='/dashboard/airport' mat-raised-button color="primary">Show Airport
+    <a class="airport-list-button" routerLink='/dashboard/airport' mat-raised-button color="primary">Show Airport
         Lists</a>
-    <!-- <form [formGroup]="airportformGroup"> -->
+
+    <form>
+
+        <div class="row">
+            <mat-form-field class="col-md-3 col-sm-3">
+                <input matInput placeholder="Name" type="text">
+            </mat-form-field>
+            <mat-form-field class="col-md-3 col-sm-3">
+                <input matInput placeholder="Identifier" type="text">
+            </mat-form-field>
+            <mat-form-field class="col-md-3 col-sm-3">
+                <input matInput placeholder="IATA" type="text">
+            </mat-form-field>
+            <mat-form-field class="col-md-3 col-sm-3">
+                <input matInput placeholder="NONAME" type="text">
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 space-between">
+                <mat-checkbox matInput id="customs" color="primary">Customs</mat-checkbox>
+                <mat-checkbox matInput id="nosie" color="primary">Noise Restriction</mat-checkbox>
+                <mat-checkbox matInput id="lighted" color="primary">Lighted</mat-checkbox>
+            </div>
+        </div>
 
 
-    <div class="row">
-        <mat-form-field class="col-md-3 col-sm-3">
-            <input matInput placeholder="Name" type="text">
-        </mat-form-field>
-        <mat-form-field class="col-md-3 col-sm-3">
-            <input matInput placeholder="Identifier" type="text">
-        </mat-form-field>
-        <mat-form-field class="col-md-3 col-sm-3">
-            <input matInput placeholder="IATA" type="text">
-        </mat-form-field>
-        <mat-form-field class="col-md-3 col-sm-3">
-            <input matInput placeholder="NONAME" type="text">
-        </mat-form-field>
+        <div class="row">
+            <mat-form-field class="col-md-3 col-xl-3 col-sm-12 col-xs-12">
+                <input matInput placeholder="State" type="text">
+            </mat-form-field>
+            <mat-form-field class="col-md-3 col-xl-3 col-sm-12 col-xs-12">
+                <input matInput placeholder="Country" type="text">
+            </mat-form-field>
 
-    </div>
-    <div class="row">
-        <mat-form-field class="col-md-4 col-sm-4">
-            <mat-checkbox id="customs" color="primary">Customs</mat-checkbox>
-        </mat-form-field>
-        <mat-form-field class="col-md-4 col-sm-4">
-            <mat-checkbox id="nosie" color="primary">Noise Restriction</mat-checkbox>
-        </mat-form-field>
-        <mat-form-field class="col-md-4 col-sm-4">
-            <mat-checkbox id="lighted" color="primary">Lighted</mat-checkbox>
-        </mat-form-field>
+            <div class="col-md-6 col-xl-6 col-sm-12 col-xs-12 px-0">
+                <mat-form-field class="col-md-3 col-sm-3">
+                    <input matInput placeholder="Latitude" type="text">
+                </mat-form-field>
+                <mat-form-field class="col-md-3 col-sm-3">
+                    <!-- <mat-label>Filter by Level</mat-label> -->
+                    <mat-select>
+                        <mat-option value="S" selected>South</mat-option>
+                        <mat-option value="N">North</mat-option>
 
-
-    </div>
-    <div class="row">
-        <mat-form-field class="col-md-3 col-sm-3">
-            <input matInput placeholder="State" type="text">
-        </mat-form-field>
-        <mat-form-field class="col-md-3 col-sm-3">
-            <input matInput placeholder="Country" type="text">
-        </mat-form-field>
-        <mat-form-field class="col-md-3 col-sm-3">
-            <input matInput placeholder="Latitude" type="text">
-        </mat-form-field>
-        <mat-form-field class="col-md-3 col-sm-3">
-            <input matInput placeholder="Longitude" type="text">
-        </mat-form-field>
-
-    </div>
-    <div class="row">
-        <mat-form-field class="col-md-3 col-sm-3">
-            <input matInput placeholder="Elevation" type="number">
-        </mat-form-field>
-        <mat-form-field class="col-md-3 col-sm-3">
-            <input matInput placeholder="Surface" type="text">
-        </mat-form-field>
-        <mat-form-field class="col-md-3 col-sm-3">
-            <input matInput placeholder="Runway Width" type="text">
-        </mat-form-field>
-        <mat-form-field class="col-md-3 col-sm-3">
-            <input matInput placeholder="TimeZone(+/-UTC)" type="text">
-        </mat-form-field>
-
-    </div>
-
-    <div class="row">
-        <mat-form-field class="col-md-4 col-sm-4">
-            <input matInput placeholder="Runway Length" type="number">
-        </mat-form-field>
-        <mat-form-field class="col-md-4 col-sm-4">
-            <mat-checkbox id="avgas" color="primary">AV Gas</mat-checkbox>
-        </mat-form-field>
-        <mat-form-field class="col-md-4 col-sm-4">
-            <mat-checkbox id="jetfuel" color="primary">Jet Fuel</mat-checkbox>
-        </mat-form-field>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-md-3 col-sm-3">
+                    <input matInput placeholder="Longitude" type="text">
+                </mat-form-field>
+                <mat-form-field class="col-md-3 col-sm-3">
+                    <!-- <mat-label>Filter by Level</mat-label> -->
+                    <mat-select>
+                        <mat-option value="E">East</mat-option>
+                        <mat-option value="W">West</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
 
 
-    </div>
+
+        <div class="row">
+            <mat-form-field class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                <input matInput placeholder="Elevation" type="number">
+            </mat-form-field>
+            <mat-form-field class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                <input matInput placeholder="Runway Length" type="text">
+            </mat-form-field>
+            <mat-form-field class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                <input matInput placeholder="Runway Width" type="text">
+            </mat-form-field>
+            <mat-form-field class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <input matInput placeholder="Surface" type="text">
+            </mat-form-field>
+            <mat-form-field class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <input matInput placeholder="TimeZone (+/- UTC)" type="number">
+            </mat-form-field>
+        </div>
 
 
-    <div class="row">
-        <mat-form-field class="col-md-12 col-sm-12">
-            <!-- <mat-radio-group>
+
+
+        <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <strong>Fuel</strong>
+
+                <div class="col-12 mt-3">
+                    <mat-checkbox id="avgas" color="primary">AV Gas</mat-checkbox>
+                    <mat-checkbox class="ml-3" id="jetfuel" color="primary">Jet Fuel</mat-checkbox>
+                </div>
+                <!-- <div class="col-6 col-6">
+            </div> -->
+            </div>
+
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <strong>Type</strong>
+                <div class="col-12 mt-3">
+                    <mat-radio-group class="space-between">
                         <mat-radio-button value="1">Public</mat-radio-button>
                         <mat-radio-button value="2">Military</mat-radio-button>
                         <mat-radio-button value="3">Joint</mat-radio-button>
                         <mat-radio-button value="4">Private</mat-radio-button>
-                    </mat-radio-group> -->
-        </mat-form-field>
+                    </mat-radio-group>
+                </div>
+            </div>
 
-    </div>
-
-
-    <div class="row bottom-row">
-        <mat-form-field class="col-md-6 col-sm-12">
-            <textarea matInput placeholder="Remarks"></textarea>
-        </mat-form-field>
-
-        <div class="col-md-6 col-sm-12 page-buttons">
-            <button mat-raised-button type="button" color="primary">Save</button>
-            <button mat-raised-button type="button" color="primary">Approve</button>
+            <mat-form-field class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <textarea matInput placeholder="Remarks"></textarea>
+            </mat-form-field>
         </div>
-    </div>
+        <div class="row bottom-row">
+            <div class="offset-xl-9 offset-lg-9 offset-md-9 col-md-3 col-sm-12 col-xs-12 page-buttons">
+                <button mat-raised-button type="button" color="primary">Save</button>
+                <button mat-raised-button type="button" color="primary" class="ml-3">Approve</button>
+            </div>
+        </div>
 
-    <!-- </form> -->
+    </form>
 </div>

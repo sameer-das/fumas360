@@ -1,18 +1,20 @@
 <div class="page-wrapper">
     <h2 class="page-heading">Airport List</h2>
+
     <div class="row">
-     <div class="col-md-5 col-sm-5"></div>
-     <div class="col-md-4 col-sm-4"></div>
-        <mat-form-field class="col-md-3 col-sm-3">
+        <mat-form-field class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12">
             <input matInput placeholder="Search" type="search" autocomplete="off">         
-        </mat-form-field>
-        
-    </div>
-    <div class="row">
-        <div class="col-md-6 col-sm-12 create-new-container">
-            <a color="primary" mat-raised-button routerLink="/dashboard/airport/add">Create New Airport</a>            
+        </mat-form-field>  
+
+        <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-xs-12 px-0 page-action">
+            <a color="primary" mat-raised-button routerLink="/dashboard/airport/add">Create New Airport</a>       
+            <button color="primary" mat-raised-button class="ml-3">
+                Upload Airport Map
+                <!-- <input type="file"> -->
+            </button>            
+            <a color="primary" mat-raised-button class="ml-3" (click)="showPdf()">View Airport Map</a>            
         </div>
-        <div class="col-md-6 col-sm-12">
+        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
             <mat-paginator #paginator
             [pageSize]="10"
             [pageSizeOptions]="[5, 10, 25]"
@@ -20,6 +22,13 @@
             </mat-paginator>
         </div>
     </div>
+
+
+
+
+
+
+
     <div class="card-table table-fixed-height">
         <table class="table table-hover">
             <thead>
