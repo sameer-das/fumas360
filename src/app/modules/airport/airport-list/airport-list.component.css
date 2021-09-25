@@ -39,3 +39,11 @@ thead {
     align-items: center;
 }
 
+.page-heading {
+    position: absolute;
+}
+
+
+input[type="file"] {
+    display: none;
+}

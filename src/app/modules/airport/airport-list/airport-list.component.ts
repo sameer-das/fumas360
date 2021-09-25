@@ -11,7 +11,7 @@ import { ViewPdfComponent } from '../popup/view-pdf/view-pdf.component';
 export class AirportListComponent implements OnInit , AfterViewInit {
   @ViewChild('paginator') paginator!: MatPaginator;
   constructor(public dialog: MatDialog) { }
-
+  arr = [0,1,2,3,4,5,6,7];
   ngOnInit(): void {
   }
   ngAfterViewInit() {

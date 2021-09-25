@@ -1,26 +1,33 @@
 <div class="page-wrapper">
-    <h2 class="page-heading">Airport List</h2>
-
     <div class="row">
-        <mat-form-field class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12">
-            <input matInput placeholder="Search" type="search" autocomplete="off">         
-        </mat-form-field>  
+        <h2 class="page-heading ml-3">Airport List</h2>
+        <div class="offset-xl-6 offset-lg-6 offset-md-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 d-flex">
+            <mat-form-field class="col-9">
+                <input matInput placeholder="Search" type="search" autocomplete="off">         
+            </mat-form-field>
+            <div class="col-3 px-0">
+                <a color="primary" mat-raised-button routerLink="/dashboard/airport/add">Create New Airport</a>       
+            </div>
+        </div>
+    </div>
 
-        <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-xs-12 px-0 page-action">
-            <a color="primary" mat-raised-button routerLink="/dashboard/airport/add">Create New Airport</a>       
+    
+    <div class="row">       
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12 px-0">
+            <button color="primary" mat-raised-button class="ml-3" (click)="showPdf()">View Airport Map</button>            
             <button color="primary" mat-raised-button class="ml-3">
                 Upload Airport Map
                 <!-- <input type="file"> -->
             </button>            
-            <a color="primary" mat-raised-button class="ml-3" (click)="showPdf()">View Airport Map</a>            
         </div>
-        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
-            <mat-paginator #paginator
-            [pageSize]="10"
-            [pageSizeOptions]="[5, 10, 25]"
-            aria-label="Select page">
-            </mat-paginator>
-        </div>
+    
+
+        <mat-paginator #paginator class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12"
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25]"
+        aria-label="Select page">
+        </mat-paginator>
+
     </div>
 
 
@@ -45,7 +52,7 @@
                 </tr>
             </thead>
             <tbody class="">
-                <tr>
+                <tr *ngFor="let i of arr">
                     <th scope="row">KINSHASA</th>
                     <td>FZZA</td>
                     <td>200</td>
