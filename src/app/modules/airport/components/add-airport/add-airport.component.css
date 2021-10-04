@@ -1,0 +1,64 @@
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.page-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.bottom-row {
+    padding-bottom: 4rem;
+}
+.airport-list-button {
+    text-decoration: none;
+}
+
+
+
+
+.file-upload input[type="file"] {
+    display: none;
+}
+  
+.file-upload {
+    /* border: 2px solid red; */
+    width: 140px;
+    height: 38px;
+    background-color: #5f757d;
+    color:#fff;
+    box-sizing: border-box;
+    user-select: none;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    font-size: 0.85rem;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    text-align: center;
+    margin: 0;
+    min-width: 64px;
+    line-height: 36px;
+    padding: 0 16px;
+    border-radius: 4px;
+    overflow: visible;
+    transform: translate3d(0, 0, 0);
+    transition: background 400ms cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+span.file-delete-button {
+    cursor: pointer;
+    color: #5f757d;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: 0.3s;
+}
+
+span.file-delete-button:hover {
+    color: orangered;
+}

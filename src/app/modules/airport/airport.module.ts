@@ -1,13 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AirportListComponent } from './airport-list/airport-list.component';
 import { RouterModule, Routes } from '@angular/router';
-import { AddAirportComponent } from './add-airport/add-airport.component';
+import { AddAirportComponent } from './components/add-airport/add-airport.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { ViewPdfComponent } from './popup/view-pdf/view-pdf.component';
+import { AirportListComponent } from './components/airport-list/airport-list.component';
+import { AddAirportService } from './guards/add-airport.service';
 const routes:Routes = [
   {path:'',  component:AirportListComponent},
-  {path:'add',  component:AddAirportComponent}
+  {
+    path:'add',  
+    component:AddAirportComponent,
+    resolve: {airportdata: AddAirportService}
+
+}
 ]
 
 @NgModule({

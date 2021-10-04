@@ -33,17 +33,9 @@ thead {
     background: none;
 }
 
-.page-action{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+td.pointer {
+    cursor: pointer;
 }
-
-.page-heading {
-    position: absolute;
-}
-
-
-input[type="file"] {
-    display: none;
+td.pointer:hover span {
+    color: #93dffd;
 }

@@ -1,0 +1,71 @@
+<div class="page-wrapper">
+    <h2 class="page-heading">Airport List</h2>
+    
+    <div class="row">       
+        <!-- <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12 d-flex px-0">
+            <mat-form-field class="col-6">
+                <input matInput placeholder="Search" type="search" autocomplete="off">         
+            </mat-form-field>
+            <div class="col-6 px-0">
+                <a color="primary" mat-raised-button routerLink="/dashboard/airport/add">Create New Airport</a>       
+            </div>
+        </div> -->
+
+        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
+            <a color="primary" mat-raised-button routerLink="/dashboard/airport/add">Create New Airport</a>       
+        </div>
+
+        <mat-form-field class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
+            <input matInput placeholder="Search" type="search" autocomplete="off" [formControl]="search">         
+        </mat-form-field>   
+
+        <mat-paginator class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12"
+        [length]="(data$ | async)?.length"
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25]"
+        (page)="onPaginate($event)"
+        aria-label="Select page">
+        </mat-paginator>
+
+    </div>
+
+
+    <div class="card-table table-fixed-height">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Airport Name</th>
+                    <th scope="col">Identifier</th>
+                    <th scope="col">Length(Runway)</th>
+                    <th scope="col">Coordinates</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">Elevation</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">View</th>
+                    <th scope="col">Last Updated</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody class="">
+                <tr *ngFor="let airport of airPortList$ | async">
+                    <th scope="row">{{airport.aname}}</th>
+                    <td>{{airport.idntfr}}</td>
+                    <td>{{airport.arlength}}</td>
+                    <td>{{airport.cord}}</td>
+                    <td>{{airport.acountry}}</td>
+                    <td>{{airport.aElevtn}}</td>
+                    <td>{{airport.aid}}</td>
+                    <td>{{airport.status}}</td>
+                    <td title="View Airport Status" class="pointer" (click)="showPdf()"><span class="material-icons">visibility</span></td>
+                    <td>{{date | date:'mediumDate'}}</td>
+                    <td>                       
+                        <a routerLink="/dashboard/airport/add" [queryParams]="{airportid: airport.aid}" title="Edit log">
+                            <span class="material-icons">edit_note</span>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
