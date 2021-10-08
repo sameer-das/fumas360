@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,11 @@ export class AddAirportService implements Resolve<any>{
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if(route.queryParams.airportid)
      return this._http.get(`http://101.53.147.38/MyPortal/api/Flight/GetAirportDetails?Id=${route.queryParams.airportid}`)
-    return of(null);
+    return this._http.get(`http://101.53.147.38/MyPortal/api/Flight/GetAirportDetails?Id=0`).pipe(
+      map(resp => {
+        return { ...resp, new: true}
+      })
+    )
   }
 
 }

@@ -57,7 +57,8 @@
                     <td>{{airport.aElevtn}}</td>
                     <td>{{airport.aid}}</td>
                     <td>{{airport.status}}</td>
-                    <td title="View Airport Status" class="pointer" (click)="showPdf()"><span class="material-icons">visibility</span></td>
+                    <td *ngIf="!airport.filename">--</td>
+                    <td *ngIf="!!airport.filename" title="View Airport Status" class="pointer" (click)="showPdf(airport.filename)"><span class="material-icons">visibility</span></td>
                     <td>{{date | date:'mediumDate'}}</td>
                     <td>                       
                         <a routerLink="/dashboard/airport/add" [queryParams]="{airportid: airport.aid}" title="Edit log">

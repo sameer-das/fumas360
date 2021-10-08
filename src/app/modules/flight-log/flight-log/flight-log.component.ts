@@ -82,9 +82,9 @@ export class FlightLogComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.searchbar.valueChanges.subscribe(this.searchSubject$);
     this.filterBy.valueChanges.subscribe(this.filterDropDownSubject$);
-    this.dateRangeValueChanges$.subscribe((d) => {
-      console.log(d);
-    });
+    // this.dateRangeValueChanges$.subscribe((d) => {
+    //   console.log(d);
+    // });
   }
 
   ngAfterViewInit() {

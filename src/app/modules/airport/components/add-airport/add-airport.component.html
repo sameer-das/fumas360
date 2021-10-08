@@ -2,9 +2,9 @@
     <h2 class="page-heading">Add/Update Airport</h2>
     <a class="airport-list-button" routerLink='/dashboard/airport' mat-raised-button color="primary">Show Airport
         Lists</a>
-    <button class="ml-3" mat-raised-button type="button" color="primary">View Map</button>
+    <!-- <button class="ml-3" mat-raised-button type="button" color="primary">View Map</button> -->
 
-    <form [formGroup]="airportFormGroup">
+    <form [formGroup]="airportFormGroup" class="mt-3">
 
         <div class="row">
             <mat-form-field class="col-md-3 col-sm-3">
@@ -17,7 +17,7 @@
                 <input matInput placeholder="IATA" type="text" formControlName="iata">
             </mat-form-field>
             <mat-form-field class="col-md-3 col-sm-3">
-                <input matInput placeholder="NONAME" type="text" formControlName="iata">
+                <input matInput placeholder="NONAME" type="text" readonly [value]="noname">
             </mat-form-field>
         </div>
 
@@ -50,8 +50,8 @@
                 <mat-form-field class="col-md-3 col-sm-3">
                     <!-- <mat-label>Filter by Level</mat-label> -->
                     <mat-select formControlName="aLatn">
-                        <mat-option value="S">South</mat-option>
-                        <mat-option value="N">North</mat-option>
+                        <mat-option value="S">S</mat-option>
+                        <mat-option value="N">N</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="col-md-3 col-sm-3">
@@ -60,8 +60,8 @@
                 <mat-form-field class="col-md-3 col-sm-3">
                     <!-- <mat-label>Filter by Level</mat-label> -->
                     <mat-select formControlName="aLonge">
-                        <mat-option value="E">East</mat-option>
-                        <mat-option value="W">West</mat-option>
+                        <mat-option value="E">E</mat-option>
+                        <mat-option value="W">W</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -80,7 +80,7 @@
                 <input matInput placeholder="Runway Width" type="number" min="0" formControlName="aRwidth" >
             </mat-form-field>
             <mat-form-field class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                <input matInput placeholder="Surface" type="number" min="0" formControlName="surface" >
+                <input matInput placeholder="Surface" type="number" min="0" max="10" formControlName="surface" >
             </mat-form-field>
             <mat-form-field class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12">
                 <input matInput placeholder="TimeZone (+/- UTC)" type="number" formControlName="aTimeZ" >
@@ -144,7 +144,7 @@
         <div class="row bottom-row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label class="file-upload">
-                    Upload Map
+                    Upload Airport Status
                     <input #fileInput type="file" (change)="onFileUpload($event)">
                 </label>
                 <span class="ml-2" *ngIf="file">{{file?.name}}</span>
@@ -152,7 +152,7 @@
             </div>
 
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 page-buttons">                
-                <button mat-raised-button type="button" color="primary" (click)="onSave()">Save</button>
+                <button mat-raised-button type="submit" color="primary" [disabled]="airportFormGroup.invalid" (click)="onSave()">Save</button>
                 <button mat-raised-button type="button" color="secondary" class="ml-3">Canel</button>
             </div>
         </div>

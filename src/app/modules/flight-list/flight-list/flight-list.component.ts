@@ -527,6 +527,22 @@ export class FlightListComponent implements OnInit {
       this.openAlertPopup('Invalid entry in Crew 6 field!');
       return false;
     }
+    // Check duplicate in crew details 
+    const arr = [];
+    if(pilot && typeof pilot === 'object') arr.push(pilot.cid);
+    if(officer && typeof officer === 'object') arr.push(officer.cid);
+    if(attendant && typeof attendant === 'object') arr.push(attendant.cid);
+    if(crew1 && typeof crew1 === 'object') arr.push(crew1.cid);
+    if(crew2 && typeof crew2 === 'object') arr.push(crew2.cid);
+    if(crew3 && typeof crew3 === 'object') arr.push(crew3.cid);
+    if(crew4 && typeof crew4 === 'object') arr.push(crew4.cid);
+    if(crew5 && typeof crew5 === 'object') arr.push(crew5.cid);
+    if(crew6 && typeof crew6 === 'object') arr.push(crew6.cid);
+    if([...new Set(arr)].length !== arr.length){
+      this.openAlertPopup('Duplicate names are not allowed in crew detail fields!');
+      return false;
+    }
+
     return true;
   }
   addToCrewArray() {
@@ -836,6 +852,7 @@ export class FlightListComponent implements OnInit {
       return;
     }
     const postData = this.createPayloadForSaveAndApprove();
+
     console.dir(postData);
 
     console.log(JSON.stringify(postData))
@@ -844,9 +861,9 @@ export class FlightListComponent implements OnInit {
       .subscribe(d => {
         console.log(d)
         if (d.code == 200 && d.status == "Success")
-          this.openSuccessPopup(d.data)
-            .afterClosed()
-            .subscribe(_ => this._router.navigate(['dashboard/flight-log']));
+          this.openSuccessPopup(d.data);
+            // .afterClosed()
+            // .subscribe(_ => this._router.navigate(['dashboard/flight-log']));
         else
           this.openAlertPopup(d.data)
       }, err => {
@@ -865,7 +882,7 @@ export class FlightListComponent implements OnInit {
       {
         height: '180px',
         width: '380px',
-        data: { message: 'Are you sure to approve this quotation?' }
+        data: { message: 'Are you sure to approve this flight log?' }
       }
     )
 
@@ -953,10 +970,10 @@ export class FlightListComponent implements OnInit {
         "flightreg": this.formGroup.value.registration.ainfo,
         "name": this.formGroup.value.customer.names,
         "code": this.formGroup.value.customer.code,
-        "tdate": this.formGroup.value.date.toISOString(),
-        "predatedate": this.formGroup.value.date.toISOString(),
-        "cmdtdate": this.formGroup.value.date.toISOString(),
-        "checkdate": this.formGroup.value.nextCheckDate.toISOString(),
+        "tdate": moment(this.formGroup.value.date).format('yyyy-MM-DDTHH:mm:ssZ'),
+        "predatedate": moment(this.formGroup.value.date).format('yyyy-MM-DDTHH:mm:ssZ'),
+        "cmdtdate": moment(this.formGroup.value.date).format('yyyy-MM-DDTHH:mm:ssZ'),
+        "checkdate": moment(this.formGroup.value.nextCheckDate).format('yyyy-MM-DDTHH:mm:ssZ'), 
         "defect": +this.formGroup.value.deferDefect,
         "captain": null,
         "officer": null,

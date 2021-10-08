@@ -100,7 +100,8 @@
                             </mat-form-field>
 
                             <mat-form-field class="col-md-8 col-sm-8">
-                                <input matInput placeholder="Delay Time" type="number" [readonly]="!formGroup.get('hasDelay')?.value" min="0" formControlName="delayTime">
+                                <input matInput placeholder="Delay Time" type="number"  min="0" formControlName="delayTime">
+                                <!-- [readonly]="!formGroup.get('hasDelay')?.value" -->
                             </mat-form-field>
                         </div>
                         <div class="tab-content-row">

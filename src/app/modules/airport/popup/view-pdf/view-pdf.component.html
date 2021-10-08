@@ -1,6 +1,8 @@
-<h2 mat-dialog-title class="text-center">Airport Map</h2>
+<h2 mat-dialog-title class="text-center">Airport Status</h2>
 <mat-dialog-content class="mat-typography">
-    <embed src="assets/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0" width="800px" height="842px" />
+    <!-- <embed src="assets/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0" width="800px" height="842px" /> -->
+    <embed *ngIf="showPDF" [src]="pdfUrl" width="800px" height="842px" />
+
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-raised-button color="primary" mat-dialog-close>Close</button>

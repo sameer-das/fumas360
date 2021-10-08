@@ -30,6 +30,7 @@ export class AirportListComponent implements OnInit {
 
   search:FormControl = new FormControl();
   search$ = this.search.valueChanges.pipe(startWith(''));
+  
   data$ = combineLatest([this.airPortdata$,this.search$]).pipe(
     map(([airports, search]) => {      
       if(search)
@@ -61,7 +62,9 @@ export class AirportListComponent implements OnInit {
 
 
 
-  showPdf() {
-    const dialogRef = this.dialog.open(ViewPdfComponent)
+  showPdf(filename: string) {   
+    const dialogRef = this.dialog.open(ViewPdfComponent, {
+      data: filename
+    })
   }
 }
