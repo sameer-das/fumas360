@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { TempComponent } from './components/temp/temp.component';
 import { HomeGuardService } from './shared/guards/home-guard.service';
 
 const routes: Routes = [
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'dashboard',
+    // component:TempComponent,
     component: HomeComponent,
     canActivate:[HomeGuardService],
     children: [

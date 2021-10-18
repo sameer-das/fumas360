@@ -15,13 +15,15 @@ export class ViewPdfComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   pdfUrl!:SafeResourceUrl;
+  simpleUrl!: string;
   showPDF: boolean = false;
   ngOnInit(): void {
     console.log(this.data)
     this._airportService.getPDF(this.data).subscribe((pdfResp: any) => {
       console.log(pdfResp)
       if(pdfResp.code === 200){
-        this.pdfUrl = this._sanitizer.bypassSecurityTrustResourceUrl('data:application/pdf;base64,' + pdfResp.data + '#toolbar=0');
+        this.simpleUrl = 'data:application/pdf;base64,' + pdfResp.data + '#toolbar=0';
+        this.pdfUrl = this._sanitizer.bypassSecurityTrustResourceUrl(this.simpleUrl);
         this.showPDF = true;
       }
     })

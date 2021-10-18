@@ -22,6 +22,8 @@ export class AddAirportComponent implements OnInit, OnDestroy {
   aid: number = 0;
   noname: string = '';
 
+  editFilename!: string;
+
   airportFormGroup: FormGroup = new FormGroup({
     aname: new FormControl('', Validators.required),
     idntfr: new FormControl('', Validators.required),
@@ -53,6 +55,7 @@ export class AddAirportComponent implements OnInit, OnDestroy {
       if(!('new' in data.airportdata)){
         console.log(data.airportdata)
         this.isEdit = true;
+        this.editFilename =  data.airportdata.data.filename;
         this.aid = data.airportdata.data.aid;
         this.noname = data.airportdata.data.aname;
         this.countries = data.airportdata.data.countrys;

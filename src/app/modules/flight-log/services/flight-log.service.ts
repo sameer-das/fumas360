@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, shareReplay, tap } from 'rxjs/operators';
-
+import { environment } from 'src/environments/environment';
 @Injectable()
 export class FlightLogService {
 
   constructor(private _http: HttpClient) { }
-  private URL: string =  `http://101.53.147.38/MyPortal/api/Flight/FlightLogs`
+  private URL: string =  `${environment.API_BASE_URL}/Flight/FlightLogs`
   getFlightList = this._http.get(this.URL).pipe(
     map((resp:any) => {
       return {

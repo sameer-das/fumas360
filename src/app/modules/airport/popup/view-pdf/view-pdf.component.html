@@ -1,9 +1,12 @@
-<h2 mat-dialog-title class="text-center">Airport Status</h2>
+<!-- <h2 mat-dialog-title class="text-center">Airport Status</h2>
 <mat-dialog-content class="mat-typography">
-    <!-- <embed src="assets/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0" width="800px" height="842px" /> -->
-    <embed *ngIf="showPDF" [src]="pdfUrl" width="800px" height="842px" />
-
-</mat-dialog-content>
+    <embed src="assets/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0" width="800px" height="842px" />
+    <iframe *ngIf="showPDF" [src]="pdfUrl" width="800px" height="842px"> </iframe>
+    <div class="cont">
+    </div>   
+    
+  </mat-dialog-content>
+  <pdf-viewer  mat-dialog-content *ngIf="showPDF" [src]="simpleUrl"></pdf-viewer>
 <mat-dialog-actions align="end">
   <button mat-raised-button color="primary" mat-dialog-close>Close</button>
-</mat-dialog-actions>
+</mat-dialog-actions> -->

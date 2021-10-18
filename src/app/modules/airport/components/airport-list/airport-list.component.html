@@ -58,7 +58,12 @@
                     <td>{{airport.aid}}</td>
                     <td>{{airport.status}}</td>
                     <td *ngIf="!airport.filename">--</td>
-                    <td *ngIf="!!airport.filename" title="View Airport Status" class="pointer" (click)="showPdf(airport.filename)"><span class="material-icons">visibility</span></td>
+                    <!-- (click)="showPdf(airport.filename)" -->
+                    <td *ngIf="!!airport.filename" title="View Airport Status" class="pointer" >
+                        <a routerLink="/dashboard/airport/airport-status" [queryParams]="{fname: airport.filename}">
+                            <span class="material-icons">visibility</span>
+                        </a>                    
+                    </td>
                     <td>{{date | date:'mediumDate'}}</td>
                     <td>                       
                         <a routerLink="/dashboard/airport/add" [queryParams]="{airportid: airport.aid}" title="Edit log">
@@ -69,4 +74,5 @@
             </tbody>
         </table>
     </div>
+
 </div>

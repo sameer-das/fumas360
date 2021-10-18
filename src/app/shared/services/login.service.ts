@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class LoginService {
       "Password":password
     };
 
-    return this._http.post<LoginAPIResponse>('http://101.53.147.38/MyPortal/api/Home/ValidateUser',obj)
+    return this._http.post<LoginAPIResponse>(`${environment.API_BASE_URL}/Home/ValidateUser`,obj)
     .pipe(tap((response:LoginAPIResponse) => {
       console.log(response);
       if(response.code == 200 && response.status.toLowerCase() === 'success') {

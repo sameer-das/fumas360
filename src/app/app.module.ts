@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MenuItemComponent } from './components/menu-item/menu-item.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { TempComponent } from './components/temp/temp.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     LoginComponent,
     HomeComponent,
     MenuItemComponent,
-    DashboardComponent, 
+    DashboardComponent,
+    TempComponent, 
   ],
   imports: [
     BrowserModule,

@@ -147,7 +147,8 @@
                     Upload Airport Status
                     <input #fileInput type="file" (change)="onFileUpload($event)">
                 </label>
-                <span class="ml-2" *ngIf="file">{{file?.name}}</span>
+                <span class="ml-2" *ngIf="!file && editFilename"> <strong>{{editFilename}}</strong> </span>
+                <span class="ml-2" *ngIf="file"><strong>{{file?.name}}</strong> </span>
                 <span *ngIf="file" class="material-icons file-delete-button ml-2" title="Delete file" (click)="onFileDelete()">delete</span>   
             </div>
 

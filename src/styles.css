@@ -116,3 +116,10 @@ p-calendar.ng-invalid.ng-touched input.p-inputtext {
 p-calendar.ng-invalid.ng-touched + label.my-label {
     color: red;
 }
+
+
+
+
+/* .ng2-pdf-viewer-container {
+    position:static !important;
+} */
